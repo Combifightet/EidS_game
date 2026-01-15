@@ -9,6 +9,7 @@ const GRID_SUBDIVISIONS: int = 1
 
 
 func _ready() -> void:
+
 	
 	floorplan_gen = FloorPlanGen.new()
 	#floorplan_gen.set_seed(7)
@@ -16,7 +17,7 @@ func _ready() -> void:
 	floorplan_gen.set_seed(randi())
 	floorplan_gen.generate(Global.difficulty)
 	print("last_seed: ", floorplan_gen.get_last_seed())
-
+	
 	print("displaying grid ...")
 	var grid: FloorPlanGrid = floorplan_gen.get_grid()
 

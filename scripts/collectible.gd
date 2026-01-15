@@ -12,6 +12,9 @@ func _ready() -> void:
 	
 
 func _on_body_entered(body: Node3D) -> void:
+	
+	AudioController.play_collectible()
+	
 	# Check if the entering area belongs to the player and has add_points method
 	if body and body.has_method("add_points"):
 		body.add_points(int(value))

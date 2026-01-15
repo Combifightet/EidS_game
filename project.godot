@@ -20,6 +20,7 @@ config/icon="uid://cjveh26uqowbg"
 [autoload]
 
 Global="*res://global.gd"
+AudioController="*res://scenes/audio_controller.tscn"
 
 [display]
 

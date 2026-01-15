@@ -211,6 +211,9 @@ func update_indicator() -> void:
 		spot_indicator.text = ""
 
 func game_over() -> void:
+	
+	AudioController.play_lost()
+	
 	print("GAME OVER")
 	spot_indicator.text = "CAUGHT!"
 	get_tree().change_scene_to_file("res://scenes/game_over.tscn")

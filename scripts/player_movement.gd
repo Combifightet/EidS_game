@@ -38,7 +38,12 @@ var _player_material: StandardMaterial3D
 
 var points: int = 0
 
+var _last_position: Vector3
+
 func _ready() -> void:
+	
+	_last_position = global_position
+
 	# 1. Create a material for the player mesh
 	_player_material = StandardMaterial3D.new()
 	if mesh:
@@ -131,10 +136,19 @@ func setup_pathfinding_graph(grid_data: Dictionary) -> void:
 				astar_graph.connect_points(from_id, to_id, false)
 
 func _process(_delta: float):
+	# --- bestehender Klick-Code bleibt UNVERÄNDERT ---
+	
+	# --- Walk-Sound-Logik ---
+	if global_position.distance_to(_last_position) > 0.001:
+		AudioController.play_walk()
+	else:
+		AudioController.stop_walk()
+	
+	_last_position = global_position
 	
 	
 	if Input.is_action_just_pressed("LeftClick"):
-		
+				
 		# Get the mouse position and camera
 		var mouse_pos = get_viewport().get_mouse_position()
 		# normalized and centered mouse position -0.5 to 0.5 
@@ -230,6 +244,7 @@ func _intersect_ray_with_plane(ray_origin: Vector3, ray_direction: Vector3, plan
 	return intersection
 
 func move_to_next_cell() -> void:
+	
 	# If already moving, or the path is empty, stop.
 	if is_moving or current_path.is_empty():
 		is_moving = false

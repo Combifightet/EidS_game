@@ -1,0 +1,34 @@
+[gd_scene load_steps=8 format=3 uid="uid://djq4fg4msy2j8"]
+
+[ext_resource type="Script" uid="uid://doakm1nty5kxh" path="res://audio_controller.gd" id="1_5dt40"]
+[ext_resource type="AudioStream" uid="uid://b3jte7pqe8e7b" path="res://assets/sounds/Shadow in the Alley.mp3" id="2_6fhfa"]
+[ext_resource type="AudioStream" uid="uid://bmilhddwwbndp" path="res://assets/sounds/Midnight Heist Loop.wav" id="2_cedxo"]
+[ext_resource type="AudioStream" uid="uid://bml8kwjcj1dwl" path="res://assets/sounds/WalkSound.wav" id="4_6fhfa"]
+[ext_resource type="AudioStream" uid="uid://dshgb1idsf6u2" path="res://assets/sounds/Collectible.wav" id="5_vj1x0"]
+[ext_resource type="AudioStream" uid="uid://n1itcox3sc50" path="res://assets/sounds/Lost.wav" id="6_12scf"]
+[ext_resource type="AudioStream" uid="uid://s75tskpguma6" path="res://assets/sounds/Seen.wav" id="7_nf7h6"]
+
+[node name="AudioController" type="Node2D"]
+script = ExtResource("1_5dt40")
+
+[node name="MenuMusic" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_6fhfa")
+
+[node name="Music" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_cedxo")
+volume_db = -10.098
+
+[node name="Walk" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_6fhfa")
+volume_db = -3.0
+
+[node name="Collectible" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_vj1x0")
+volume_db = 2.0
+
+[node name="Lost" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_12scf")
+
+[node name="Seen" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_nf7h6")
+volume_db = -5.0
