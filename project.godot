@@ -15,6 +15,7 @@ config/tags=PackedStringArray("ovgu")
 run/main_scene="uid://34txyxthjka1"
 config/features=PackedStringArray("4.5", "Forward Plus")
 boot_splash/bg_color=Color(0.14509805, 0.16862746, 0.20392157, 1)
+boot_splash/image="uid://balmvrareok3r"
 config/icon="uid://cjveh26uqowbg"
 
 [autoload]

@@ -69,7 +69,13 @@ text = "Character Editor"
 layout_mode = 2
 text = "Quit"
 
+[node name="Credits" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Credits"
+flat = true
+
 [connection signal="pressed" from="VBoxContainer/Start Game" to="." method="_on_start_game_pressed"]
 [connection signal="value_changed" from="VBoxContainer/DifficultyHSlider" to="." method="_on_difficulty_h_slider_value_changed"]
 [connection signal="pressed" from="VBoxContainer/Character Editor" to="." method="_on_character_editor_pressed"]
 [connection signal="pressed" from="VBoxContainer/Quit Game" to="." method="_on_quit_game_pressed"]
+[connection signal="pressed" from="VBoxContainer/Credits" to="." method="_on_credits_pressed"]

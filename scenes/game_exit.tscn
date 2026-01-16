@@ -1,9 +1,19 @@
-[gd_scene load_steps=38 format=3 uid="uid://be68q7aimappi"]
+[gd_scene load_steps=40 format=3 uid="uid://be68q7aimappi"]
 
 [ext_resource type="Script" uid="uid://cxrgclvofygp4" path="res://scripts/game_over.gd" id="1_abu8j"]
 [ext_resource type="Script" uid="uid://db7b6070djg2j" path="res://scripts/input_button.gd" id="2_cyml8"]
+[ext_resource type="Shader" uid="uid://dvvy4jkd0k21h" path="res://shaders/vignette.gdshader" id="2_ypidw"]
 [ext_resource type="Texture2D" uid="uid://bkreqj3ce8f4b" path="res://assets/icon_buttons.png" id="3_ypidw"]
 [ext_resource type="Texture2D" uid="uid://caj2duyc277he" path="res://assets/icons.png" id="4_gr1ai"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_racf3"]
+font_size = 64
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gr1ai"]
+shader = ExtResource("2_ypidw")
+shader_parameter/color = Color(0.08, 0.09, 0.12, 1)
+shader_parameter/bar_ratio = 0.1250000059375
+shader_parameter/vignette_strength = 0.8999999798832
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0tnpc"]
 atlas = ExtResource("3_ypidw")
@@ -251,9 +261,6 @@ animations = [{
 "speed": 6.0
 }]
 
-[sub_resource type="LabelSettings" id="LabelSettings_racf3"]
-font_size = 64
-
 [node name="GameOver" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -262,27 +269,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_abu8j")
-
-[node name="CloseButton" type="Button" parent="."]
-layout_mode = 0
-offset_left = 16.0
-offset_top = 16.0
-offset_right = 52.0
-offset_bottom = 52.0
-flat = true
-script = ExtResource("2_cyml8")
-input_action = "back"
-
-[node name="Background" type="AnimatedSprite2D" parent="CloseButton"]
-position = Vector2(18, 18)
-sprite_frames = SubResource("SpriteFrames_v3hpu")
-autoplay = "default"
-
-[node name="Icon" type="AnimatedSprite2D" parent="CloseButton"]
-position = Vector2(18, 18)
-sprite_frames = SubResource("SpriteFrames_irg28")
-animation = &"cross"
-autoplay = "cross"
 
 [node name="Title" type="Label" parent="."]
 layout_mode = 1
@@ -302,3 +288,34 @@ escaped"
 label_settings = SubResource("LabelSettings_racf3")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Vignette" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_gr1ai")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.05490196, 0.07058824, 0.08627451, 1)
+
+[node name="CloseButton" type="Button" parent="Vignette"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 52.0
+offset_bottom = 52.0
+flat = true
+script = ExtResource("2_cyml8")
+input_action = "back"
+
+[node name="Background" type="AnimatedSprite2D" parent="Vignette/CloseButton"]
+position = Vector2(18, 18)
+sprite_frames = SubResource("SpriteFrames_v3hpu")
+autoplay = "default"
+
+[node name="Icon" type="AnimatedSprite2D" parent="Vignette/CloseButton"]
+position = Vector2(18, 18)
+sprite_frames = SubResource("SpriteFrames_irg28")
+animation = &"cross"
+autoplay = "cross"
