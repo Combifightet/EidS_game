@@ -36,34 +36,41 @@ radius = 0.7
 script = ExtResource("1_3quax")
 
 [node name="Rim" type="MeshInstance3D" parent="."]
+layers = 2
 mesh = ExtResource("1_yxv68")
 skeleton = NodePath("Void")
 surface_material_override/0 = SubResource("StandardMaterial3D_7kpig")
 
 [node name="Void" type="MeshInstance3D" parent="Rim"]
+layers = 2
 mesh = ExtResource("2_3quax")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_yxv68")
 
 [node name="Lid" type="MeshInstance3D" parent="Rim"]
 transform = Transform3D(0.9961336, 0.0878512, 0, -0.0878512, 0.9961336, 0, 0, 0, 1, 1.2611761, 0.013709009, -0.21190602)
+layers = 2
 mesh = ExtResource("3_iq2e2")
 skeleton = NodePath("../Ground")
 surface_material_override/0 = SubResource("StandardMaterial3D_3quax")
 
 [node name="InnerLid" type="MeshInstance3D" parent="Rim/Lid"]
+layers = 2
 mesh = ExtResource("4_7kpig")
 skeleton = NodePath("../Ground")
 surface_material_override/0 = SubResource("StandardMaterial3D_iq2e2")
 
 [node name="Glow" type="MeshInstance3D" parent="Rim"]
+layers = 2
 mesh = ExtResource("5_ebmhn")
 surface_material_override/0 = SubResource("ShaderMaterial_gp74r")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Rim/Glow"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1014504, 0)
+layers = 2
 light_color = Color(0.3137255, 0.9529412, 0.46666667, 1)
 light_energy = 0.631
+light_cull_mask = 4293918735
 omni_range = 2.5
 
 [node name="Area3D" type="Area3D" parent="Rim/Glow"]

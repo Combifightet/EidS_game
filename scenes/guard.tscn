@@ -1,14 +1,32 @@
-[gd_scene load_steps=7 format=3 uid="uid://p4hc13wmrmsk"]
+[gd_scene load_steps=14 format=3 uid="uid://p4hc13wmrmsk"]
 
 [ext_resource type="Script" uid="uid://c0rswtf0gc4ue" path="res://scripts/guard.gd" id="1_m4fl1"]
 [ext_resource type="PackedScene" uid="uid://cko2xbxr5j553" path="res://scenes/vision_cone.tscn" id="2_ci2qi"]
+[ext_resource type="ArrayMesh" uid="uid://c0r8qnnmffoku" path="res://assets/enemy/bot_body.obj" id="2_k0dx2"]
+[ext_resource type="ArrayMesh" uid="uid://dgsva0gl47cbm" path="res://assets/enemy/bot_accent.obj" id="3_5dfqo"]
+[ext_resource type="ArrayMesh" uid="uid://cvqbhi8103q7n" path="res://assets/enemy/bot_body_accent.obj" id="4_ywdc2"]
+[ext_resource type="ArrayMesh" uid="uid://px65wtwpj3o" path="res://assets/enemy/bot_screen.obj" id="5_c4sgu"]
+[ext_resource type="Texture2D" uid="uid://balmvrareok3r" path="res://assets/enemy/face.png" id="6_ywdc2"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2hhgp"]
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_m4fl1"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ywdc2"]
+albedo_color = Color(0.74, 0.68067664, 0.6438, 1)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ci2qi"]
-albedo_color = Color(0.11263574, 0.25456724, 0.7680694, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rmy4q"]
+albedo_color = Color(0.972549, 0.38039216, 0.34901962, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vd6r2"]
+albedo_color = Color(0.67, 0.58558005, 0.52930003, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c4sgu"]
+albedo_color = Color(0.9716324, 0.3815322, 0.34856686, 1)
+albedo_texture = ExtResource("6_ywdc2")
+roughness = 0.3
+emission_enabled = true
+emission_energy_multiplier = 2.0
+emission_operator = 1
+emission_texture = ExtResource("6_ywdc2")
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_k0dx2"]
 height = 1.9
@@ -22,10 +40,24 @@ script = ExtResource("1_m4fl1")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_2hhgp")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
-mesh = SubResource("CapsuleMesh_m4fl1")
-skeleton = NodePath("../..")
-surface_material_override/0 = SubResource("StandardMaterial3D_ci2qi")
+[node name="EnemyBody" type="MeshInstance3D" parent="CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.8, 0)
+mesh = ExtResource("2_k0dx2")
+surface_material_override/0 = SubResource("StandardMaterial3D_ywdc2")
+
+[node name="Accent" type="MeshInstance3D" parent="CollisionShape3D/EnemyBody"]
+mesh = ExtResource("3_5dfqo")
+skeleton = NodePath("../BodyAccent")
+surface_material_override/0 = SubResource("StandardMaterial3D_rmy4q")
+
+[node name="BodyAccent" type="MeshInstance3D" parent="CollisionShape3D/EnemyBody"]
+mesh = ExtResource("4_ywdc2")
+surface_material_override/0 = SubResource("StandardMaterial3D_vd6r2")
+
+[node name="Screen" type="MeshInstance3D" parent="CollisionShape3D/EnemyBody"]
+mesh = ExtResource("5_c4sgu")
+skeleton = NodePath("../Accent")
+surface_material_override/0 = SubResource("StandardMaterial3D_c4sgu")
 
 [node name="VisionArea" type="Area3D" parent="."]
 collision_layer = 0

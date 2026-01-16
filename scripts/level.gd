@@ -139,6 +139,7 @@ func _place_exit(floor_plan_grid: FloorPlanGrid, doors: Array[FloorPlanGen.Door]
 	FloorPlanGrid.debug_print_mat2(outside_dist_grid)
 	
 	var possible_spawns: Array[Vector2i] = []
+	var optimal_min_dist = 6
 	var max_dist = 0
 	
 	for y in range(len(outside_dist_grid)):
@@ -146,8 +147,9 @@ func _place_exit(floor_plan_grid: FloorPlanGrid, doors: Array[FloorPlanGen.Door]
 			if outside_dist_grid[y][x]<max_dist or outside_dist_grid[y][x]<=0:
 				continue
 			elif outside_dist_grid[y][x]>=max_dist:
-				max_dist = outside_dist_grid[y][x]
-				possible_spawns = []
+				if outside_dist_grid[y][x]<optimal_min_dist:
+					max_dist = outside_dist_grid[y][x]
+					possible_spawns = []
 			#var door_dist: int = roundi((exit_door_pos-Vector2i(x,y)).length())
 			possible_spawns.append(Vector2i(x,y))
 	#possible_spawns.shuffle()

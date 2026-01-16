@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://px65wtwpj3o"
+path="res://.godot/imported/bot_screen.obj-75e2e68a6270bdcf060bf777c16bd3bc.mesh"
+
+[deps]
+
+files=["res://.godot/imported/bot_screen.obj-75e2e68a6270bdcf060bf777c16bd3bc.mesh"]
+
+source_file="res://assets/enemy/bot_screen.obj"
+dest_files=["res://.godot/imported/bot_screen.obj-75e2e68a6270bdcf060bf777c16bd3bc.mesh", "res://.godot/imported/bot_screen.obj-75e2e68a6270bdcf060bf777c16bd3bc.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

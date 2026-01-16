@@ -8,12 +8,16 @@ const DEAD_ZONE_RATIO: float = 0.125
 
 @export var collision_shape: CollisionShape3D
 @export var mesh: MeshInstance3D
+@onready var beanie: MeshInstance3D = $CollisionShape3D/Player/Beanie
 
 ## How fast the player moves from one cell to the next (in seconds)
 @export var move_duration: float = 0.2
 
 ## Y-coordinate of the XZ plane to intersect with
 @export var ground_plane_y: float = 0.0
+
+## How fast the mesh rotates towards movement direction (in seconds)
+@export var rotation_duration: float = 0.15
 
 # Pathfinding graph
 var astar_graph = AStar2D.new()
@@ -89,6 +93,9 @@ func _load_character_data() -> void:
 		if mesh and mesh.mesh is CapsuleMesh:
 			mesh.mesh.height = new_height
 			mesh.mesh.radius = new_radius
+			
+			beanie.position = mesh.position + Vector3(0, new_height/2, 0)
+			beanie.scale = Vector3.ONE*new_radius/0.5
 		
 		# Apply to the collision shape resource
 		if collision_shape and collision_shape.shape is CapsuleShape3D:
@@ -260,6 +267,23 @@ func move_to_next_cell() -> void:
 	
 	# Convert it to a 3D world position
 	var target_position = _grid_to_world(next_cell)
+	
+	# Calculate direction towards target
+	var direction = (target_position - global_position).normalized()
+	var target_angle = atan2(direction.x, direction.z)
+	
+	# Rotate mesh towards movement direction
+	if mesh:
+		var rotation_tween = create_tween()
+		rotation_tween.set_parallel(true)  # Run alongside position tween
+		
+		# Smoothly rotate towards target direction
+		var current_angle = mesh.rotation.y
+		var angle_diff = angle_difference(current_angle, target_angle)
+		var new_angle = current_angle + angle_diff
+		
+		rotation_tween.tween_property(mesh, "rotation:y", new_angle, rotation_duration)
+		rotation_tween.set_trans(Tween.TRANS_SINE)
 	
 	# Create a tween to move there
 	active_tween = create_tween()
