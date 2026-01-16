@@ -1,0 +1,77 @@
+[gd_scene load_steps=14 format=3 uid="uid://cy15vmda7k0x6"]
+
+[ext_resource type="Script" uid="uid://dpplluli33vp0" path="res://scripts/level_exit.gd" id="1_3quax"]
+[ext_resource type="ArrayMesh" uid="uid://dair6gyb8godu" path="res://assets/drain/rim.obj" id="1_yxv68"]
+[ext_resource type="ArrayMesh" uid="uid://rguv5sfx2euy" path="res://assets/drain/void.obj" id="2_3quax"]
+[ext_resource type="ArrayMesh" uid="uid://c04k0c53j2fg" path="res://assets/drain/lid_outer.obj" id="3_iq2e2"]
+[ext_resource type="ArrayMesh" uid="uid://dee4d0dxjvdh1" path="res://assets/drain/lid_inner.obj" id="4_7kpig"]
+[ext_resource type="ArrayMesh" uid="uid://dhid0yy0rmm56" path="res://assets/drain/glow.obj" id="5_ebmhn"]
+[ext_resource type="Shader" uid="uid://bkl37ainc0kul" path="res://shaders/exit_glow.gdshader" id="6_hl633"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7kpig"]
+albedo_color = Color(0.51394784, 0.34948203, 0.27754408, 1)
+roughness = 0.8
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yxv68"]
+shading_mode = 0
+albedo_color = Color(0.061200004, 0.09, 0.06792001, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3quax"]
+albedo_color = Color(0.5137255, 0.34901962, 0.2784314, 1)
+roughness = 0.8
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iq2e2"]
+albedo_color = Color(0.53, 0.52381665, 0.5194, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gp74r"]
+render_priority = 1
+shader = ExtResource("6_hl633")
+shader_parameter/color = Color(0.314, 0.953, 0.467, 0.9)
+shader_parameter/height = 1.5
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_3quax"]
+radius = 0.7
+
+[node name="LevelExit" type="Node3D"]
+script = ExtResource("1_3quax")
+
+[node name="Rim" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_yxv68")
+skeleton = NodePath("Void")
+surface_material_override/0 = SubResource("StandardMaterial3D_7kpig")
+
+[node name="Void" type="MeshInstance3D" parent="Rim"]
+mesh = ExtResource("2_3quax")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_yxv68")
+
+[node name="Lid" type="MeshInstance3D" parent="Rim"]
+transform = Transform3D(0.9961336, 0.0878512, 0, -0.0878512, 0.9961336, 0, 0, 0, 1, 1.2611761, 0.013709009, -0.21190602)
+mesh = ExtResource("3_iq2e2")
+skeleton = NodePath("../Ground")
+surface_material_override/0 = SubResource("StandardMaterial3D_3quax")
+
+[node name="InnerLid" type="MeshInstance3D" parent="Rim/Lid"]
+mesh = ExtResource("4_7kpig")
+skeleton = NodePath("../Ground")
+surface_material_override/0 = SubResource("StandardMaterial3D_iq2e2")
+
+[node name="Glow" type="MeshInstance3D" parent="Rim"]
+mesh = ExtResource("5_ebmhn")
+surface_material_override/0 = SubResource("ShaderMaterial_gp74r")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Rim/Glow"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1014504, 0)
+light_color = Color(0.3137255, 0.9529412, 0.46666667, 1)
+light_energy = 0.631
+omni_range = 2.5
+
+[node name="Area3D" type="Area3D" parent="Rim/Glow"]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Rim/Glow/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95, 0)
+shape = SubResource("CylinderShape3D_3quax")
+
+[connection signal="body_entered" from="Rim/Glow/Area3D" to="." method="_on_area_3d_body_entered"]

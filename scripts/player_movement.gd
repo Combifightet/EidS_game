@@ -290,3 +290,30 @@ func _grid_to_world(grid_pos: Vector2i) -> Vector3:
 func add_points(value: int) -> void:
 	points += value;
 	points = max(0, points)
+
+## Teleports the player to the nearest valid grid cell to the given world position
+func teleport_to_nearest_cell(target_world_pos: Vector3) -> void:
+	# Convert target position to grid coordinates
+	var target_grid_pos: Vector2i = _world_to_grid(target_world_pos)
+	
+	# Find the nearest valid cell in the pathfinding graph
+	var nearest_cell: Vector2i = target_grid_pos
+	var min_distance: float = INF
+	
+	for valid_cell in cell_to_id.keys():
+		var distance: float = target_grid_pos.distance_to(valid_cell)
+		if distance < min_distance:
+			min_distance = distance
+			nearest_cell = valid_cell
+	
+	# Cancel any ongoing movement
+	if active_tween and active_tween.is_running():
+		active_tween.kill()
+	
+	is_moving = false
+	current_path.clear()
+	
+	# Teleport to the nearest valid cell
+	var world_position = _grid_to_world(nearest_cell)
+	global_position = world_position
+	_last_position = global_position

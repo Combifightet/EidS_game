@@ -454,8 +454,6 @@ layers = 32
 mesh = SubResource("QuadMesh_tefeu")
 
 [node name="Level" parent="PixelViewportContainer/PixelViewport" instance=ExtResource("6_dinhu")]
-wall_height = 1.5
-grid_size = 2.0
 
 [node name="GameUi" type="Control" parent="."]
 layout_mode = 1

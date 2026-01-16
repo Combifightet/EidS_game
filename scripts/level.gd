@@ -5,6 +5,9 @@ class_name LevelGen
 @export var grid_size: float = 2
 
 @onready var custom_grid_map: CustomGridMap = $CustomGridMap
+@onready var level_exit: LevelExit = $LevelExit
+
+var player_ref: PlayerMovement
 
 var _collectible: PackedScene = preload('res://scenes/collectible.tscn')
 var _guard_scene: PackedScene = preload("res://scenes/guard.tscn")
@@ -19,6 +22,11 @@ func _ready() -> void:
 	#var tile_id: int = custom_grid_map.tiles[0b000_010_000]
 	#custom_grid_map.set_cell_item(Vector3(0,0,0), tile_id)
 
+func _process(_delta: float) -> void:
+	if player_ref.points > 0:
+		level_exit.open_exit()
+
+
 func _cell_equals(a: FloorPlanCell, b: FloorPlanCell) -> bool:
 	if a == null or a.is_empty():
 		return false
@@ -27,7 +35,8 @@ func _cell_equals(a: FloorPlanCell, b: FloorPlanCell) -> bool:
 		a.room_id != b.room_id
 	)
 
-func from_grid(floor_plan_grid: FloorPlanGrid, doors: Array[FloorPlanGen.Door] = [], subdivisions: int = 0) -> Array[Vector2i]:
+func from_grid(player: PlayerMovement, floor_plan_grid: FloorPlanGrid, doors: Array[FloorPlanGen.Door] = [], subdivisions: int = 0) -> Array[Vector2i]:
+	player_ref = player
 	custom_grid_map.clear()
 	custom_grid_map.room_ids = floor_plan_grid.to_sampler()
 	custom_grid_map.grid_scale = 1/grid_size
@@ -105,8 +114,53 @@ func from_grid(floor_plan_grid: FloorPlanGrid, doors: Array[FloorPlanGen.Door] =
 	_place_collectibles(floor_plan_grid, doors)
 	
 	_extend_border()
-
+	
+	var exit_pos: Vector2i = _place_exit(floor_plan_grid, doors)
+	player.teleport_to_nearest_cell(
+		Vector3(exit_pos.x, 0, exit_pos.y)+global_position
+	)
 	return _guard_spawn_points(floor_plan_grid)
+
+
+func _place_exit(floor_plan_grid: FloorPlanGrid, doors: Array[FloorPlanGen.Door]) -> Vector2i:
+	var exit_door_pos
+	for door in doors:
+		if door.from_id==FloorPlanCell.OUTSIDE:
+			exit_door_pos = door.from;
+			break
+		elif door.to_id==FloorPlanCell.OUTSIDE:
+			exit_door_pos = door.to
+			break
+	
+	var room_list: Array[int] = [FloorPlanCell.NO_ROOM]
+	for room: RoomArea in floor_plan_grid._room_dict.values():
+		room_list.append(room.id)
+	var outside_dist_grid = floor_plan_grid._get_room_dists(room_list)
+	FloorPlanGrid.debug_print_mat2(outside_dist_grid)
+	
+	var possible_spawns: Array[Vector2i] = []
+	var max_dist = 0
+	
+	for y in range(len(outside_dist_grid)):
+		for x in range(len(outside_dist_grid[y])):
+			if outside_dist_grid[y][x]<max_dist or outside_dist_grid[y][x]<=0:
+				continue
+			elif outside_dist_grid[y][x]>=max_dist:
+				max_dist = outside_dist_grid[y][x]
+				possible_spawns = []
+			#var door_dist: int = roundi((exit_door_pos-Vector2i(x,y)).length())
+			possible_spawns.append(Vector2i(x,y))
+	#possible_spawns.shuffle()
+	possible_spawns.sort_custom(
+		func(a, b): return (exit_door_pos-a).length() < (exit_door_pos-b).length()
+	)
+	
+	var exit_pos: Vector2i = possible_spawns[roundi(len(possible_spawns)/5.0)]
+	
+	var exit: LevelExit = $LevelExit
+	exit.position = Vector3(exit_pos.x, 0, exit_pos.y)
+	
+	return exit_pos
 
 
 
