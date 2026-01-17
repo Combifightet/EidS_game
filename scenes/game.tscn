@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://c8r4kfj1lcsea"]
+[gd_scene load_steps=56 format=3 uid="uid://c8r4kfj1lcsea"]
 
 [ext_resource type="Script" uid="uid://dm8bpjnp7uu0a" path="res://scripts/game.gd" id="1_u5sy4"]
 [ext_resource type="PackedScene" uid="uid://3ifg7pybi4rq" path="res://scenes/player.tscn" id="2_gee14"]
@@ -52,6 +52,8 @@ shader_parameter/vignette_strength = 0.8999999798832
 [sub_resource type="LabelSettings" id="LabelSettings_o6xl0"]
 font_size = 24
 font_color = Color(0.8784314, 0.8784314, 0.8784314, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kvpfn"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0tnpc"]
 atlas = ExtResource("9_0tnpc")
@@ -494,6 +496,11 @@ offset_left = 16.0
 offset_top = 16.0
 offset_right = 52.0
 offset_bottom = 52.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_kvpfn")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_kvpfn")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_kvpfn")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_kvpfn")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_kvpfn")
 flat = true
 script = ExtResource("9_kvpfn")
 input_action = "back"
@@ -515,6 +522,11 @@ offset_left = 386.0
 offset_top = 488.0
 offset_right = 422.0
 offset_bottom = 524.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_kvpfn")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_kvpfn")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_kvpfn")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_kvpfn")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_kvpfn")
 flat = true
 script = ExtResource("9_kvpfn")
 input_action = "rotate_camera_left"
@@ -537,6 +549,11 @@ offset_left = 529.0
 offset_top = 488.0
 offset_right = 565.0
 offset_bottom = 524.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_kvpfn")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_kvpfn")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_kvpfn")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_kvpfn")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_kvpfn")
 flat = true
 script = ExtResource("9_kvpfn")
 input_action = "rotate_camera_right"

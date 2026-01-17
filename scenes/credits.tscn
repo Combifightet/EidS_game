@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://ncispgclo2qj"]
+[gd_scene load_steps=51 format=3 uid="uid://ncispgclo2qj"]
 
 [ext_resource type="Shader" uid="uid://dvvy4jkd0k21h" path="res://shaders/vignette.gdshader" id="1_2fbfq"]
 [ext_resource type="Script" uid="uid://o8gdssge6kmv" path="res://scripts/credits.gd" id="1_8gwij"]
@@ -31,6 +31,16 @@ shader = ExtResource("1_2fbfq")
 shader_parameter/color = Color(0.08, 0.09, 0.12, 1)
 shader_parameter/bar_ratio = 0.125
 shader_parameter/vignette_strength = 0.8999999798832
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kyhnv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ooihk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ih6pn"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7lgdl"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c6kru"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0tnpc"]
 atlas = ExtResource("3_mah5v")
@@ -459,6 +469,11 @@ offset_left = 16.0
 offset_top = 16.0
 offset_right = 52.0
 offset_bottom = 52.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_kyhnv")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_ooihk")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_ih6pn")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_7lgdl")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_c6kru")
 flat = true
 script = ExtResource("2_8gwij")
 input_action = "back"

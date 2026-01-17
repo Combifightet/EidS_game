@@ -15,10 +15,9 @@ const SAVE_FILE_PATH = "user://character_data.json"
 var _preview_material: StandardMaterial3D
 var _is_loading: bool = false
 
-@onready var beanie: MeshInstance3D = $MarginContainer/VBoxContainer/SubViewportContainer/SubViewport/World3D/CharacterPreviewMesh/Beanie
+@onready var beanie: MeshInstance3D = $MarginContainer/VBoxContainer/Stack/SubViewportContainer/SubViewport/World3D/CharacterPreviewMesh/Beanie
 
 func _ready() -> void:
-	
 	_load_data()
 	
 	 # Initialize the preview material and assign it to the mesh
@@ -27,9 +26,13 @@ func _ready() -> void:
 		character_preview_mesh.material_override = _preview_material
 		_preview_material.albedo_color = color_picker_button.color
 
-	
-func _on_color_picker_button_color_changed(new_color: Color) -> void:
 
+func _process(_delta: float) -> void:	
+	if Input.is_action_just_pressed("back"):
+		get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
+
+
+func _on_color_picker_button_color_changed(new_color: Color) -> void:
 	if _preview_material:
 		_preview_material.albedo_color = new_color
 	
@@ -39,12 +42,11 @@ func _on_color_picker_button_color_changed(new_color: Color) -> void:
 
 
 func _on_height_slider_value_changed(new_height: float) -> void:
-
 	if character_preview_mesh and character_preview_mesh.mesh is CapsuleMesh:
 		var capsule_mesh: CapsuleMesh = character_preview_mesh.mesh
 		capsule_mesh.height = new_height
-		
-		beanie.position = character_preview_mesh.position + Vector3(0,new_height/2,0)
+		character_preview_mesh.position = Vector3(0, new_height/2-1, 0)
+		beanie.position = Vector3(0,new_height/2,0)
 	
 	if height_value_label:
 		height_value_label.text = "%.2f" % new_height
@@ -71,7 +73,6 @@ func _on_height_slider_value_changed(new_height: float) -> void:
 
 
 func _on_radius_slider_value_changed(new_radius: float) -> void:
-
 	if character_preview_mesh and character_preview_mesh.mesh is CapsuleMesh:
 		var capsule_mesh: CapsuleMesh = character_preview_mesh.mesh
 		capsule_mesh.radius = new_radius
@@ -89,8 +90,8 @@ func _on_radius_slider_value_changed(new_radius: float) -> void:
 		if character_preview_mesh and character_preview_mesh.mesh is CapsuleMesh:
 			var capsule_mesh: CapsuleMesh = character_preview_mesh.mesh
 			capsule_mesh.height = new_height
-			
-			beanie.position = character_preview_mesh.position + Vector3(0,new_height/2,0)
+			character_preview_mesh.position = Vector3(0, new_height/2-1, 0)
+			beanie.position = Vector3(0,new_height/2,0)
 		
 		if height_value_label:
 			height_value_label.text = "%.2f" % new_height
@@ -101,10 +102,6 @@ func _on_radius_slider_value_changed(new_radius: float) -> void:
 	
 	_save_data()
 
-
-func _on_back_buton_pressed() -> void:
-	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
-	
 
 func _save_data() -> void:
 	if _is_loading:

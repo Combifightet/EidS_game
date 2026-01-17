@@ -1,12 +1,274 @@
-[gd_scene load_steps=10 format=3 uid="uid://cr8g4ismbp5vt"]
+[gd_scene load_steps=52 format=3 uid="uid://cr8g4ismbp5vt"]
 
 [ext_resource type="Script" uid="uid://koeg41l7lnxg" path="res://scripts/character_editor.gd" id="1_arwnc"]
+[ext_resource type="Script" uid="uid://db7b6070djg2j" path="res://scripts/input_button.gd" id="2_0inf3"]
 [ext_resource type="ArrayMesh" uid="uid://bjkbpg48ws7yw" path="res://assets/player/beanie.obj" id="2_j7wju"]
 [ext_resource type="ArrayMesh" uid="uid://4j7hne05j3dn" path="res://assets/player/mask.obj" id="3_tftlr"]
+[ext_resource type="Texture2D" uid="uid://bkreqj3ce8f4b" path="res://assets/icon_buttons.png" id="3_ybc78"]
 [ext_resource type="ArrayMesh" uid="uid://cdy8eltb04onu" path="res://assets/player/eyes.obj" id="4_0inf3"]
+[ext_resource type="Texture2D" uid="uid://caj2duyc277he" path="res://assets/icons.png" id="4_0ucl3"]
+[ext_resource type="Material" uid="uid://21ytbbu1heo5" path="res://materials/floor_material.tres" id="5_0ucl3"]
+[ext_resource type="Material" uid="uid://ypqxf5j3y1ln" path="res://materials/wall_material.tres" id="6_8ghhc"]
+[ext_resource type="Shader" uid="uid://dvvy4jkd0k21h" path="res://shaders/vignette.gdshader" id="8_ybc78"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0tnpc"]
+atlas = ExtResource("3_ybc78")
+region = Rect2(0, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vtaks"]
+atlas = ExtResource("3_ybc78")
+region = Rect2(64, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kvpfn"]
+atlas = ExtResource("3_ybc78")
+region = Rect2(128, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dinhu"]
+atlas = ExtResource("3_ybc78")
+region = Rect2(192, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kvuet"]
+atlas = ExtResource("3_ybc78")
+region = Rect2(256, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_trtic"]
+atlas = ExtResource("3_ybc78")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ir15t"]
+atlas = ExtResource("3_ybc78")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ca42v"]
+atlas = ExtResource("3_ybc78")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rysoc"]
+atlas = ExtResource("3_ybc78")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ssvqc"]
+atlas = ExtResource("3_ybc78")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_264po"]
+atlas = ExtResource("3_ybc78")
+region = Rect2(0, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1kice"]
+atlas = ExtResource("3_ybc78")
+region = Rect2(64, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5newe"]
+atlas = ExtResource("3_ybc78")
+region = Rect2(128, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_37s47"]
+atlas = ExtResource("3_ybc78")
+region = Rect2(192, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bt5mj"]
+atlas = ExtResource("3_ybc78")
+region = Rect2(256, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e1j6l"]
+atlas = ExtResource("3_ybc78")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pl11u"]
+atlas = ExtResource("3_ybc78")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bhx41"]
+atlas = ExtResource("3_ybc78")
+region = Rect2(128, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qnb83"]
+atlas = ExtResource("3_ybc78")
+region = Rect2(192, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sww3w"]
+atlas = ExtResource("3_ybc78")
+region = Rect2(256, 64, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8ghhc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0tnpc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vtaks")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kvpfn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dinhu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kvuet")
+}],
+"loop": true,
+"name": &"click",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_trtic")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ir15t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ca42v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rysoc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ssvqc")
+}],
+"loop": true,
+"name": &"default",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_264po")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1kice")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5newe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_37s47")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bt5mj")
+}],
+"loop": true,
+"name": &"disabled",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e1j6l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pl11u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bhx41")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qnb83")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sww3w")
+}],
+"loop": true,
+"name": &"hover",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_js0lu"]
+atlas = ExtResource("4_0ucl3")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gxtfn"]
+atlas = ExtResource("4_0ucl3")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_twgab"]
+atlas = ExtResource("4_0ucl3")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_02fa5"]
+atlas = ExtResource("4_0ucl3")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nepv3"]
+atlas = ExtResource("4_0ucl3")
+region = Rect2(128, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_suyxu"]
+atlas = ExtResource("4_0ucl3")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sgl2t"]
+atlas = ExtResource("4_0ucl3")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qouja"]
+atlas = ExtResource("4_0ucl3")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wljb1"]
+atlas = ExtResource("4_0ucl3")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v2yb1"]
+atlas = ExtResource("4_0ucl3")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_k7hj5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_js0lu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gxtfn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_twgab")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_02fa5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nepv3")
+}],
+"loop": true,
+"name": &"arrow",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_suyxu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sgl2t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qouja")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wljb1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v2yb1")
+}],
+"loop": true,
+"name": &"cross",
+"speed": 6.0
+}]
 
 [sub_resource type="LabelSettings" id="LabelSettings_ixtqs"]
 font_size = 24
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_8ghhc"]
+size = Vector2(10, 10)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ybc78"]
+size = Vector2(10, 10)
+
+[sub_resource type="Environment" id="Environment_0ucl3"]
+background_mode = 1
+background_color = Color(0.14509805, 0.16862746, 0.20392157, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_q0e82"]
 
@@ -19,6 +281,12 @@ albedo_color = Color(0.007843138, 0.007843138, 0.007843138, 1)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8ghhc"]
 albedo_color = Color(0.9503382, 0.9576579, 0.91124964, 1)
 roughness = 0.15
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0ucl3"]
+shader = ExtResource("8_ybc78")
+shader_parameter/color = Color(0.08, 0.09, 0.12, 1)
+shader_parameter/bar_ratio = 0.062000002945
+shader_parameter/vignette_strength = 0.8999999798832
 
 [node name="CharacterEditor" type="Control" node_paths=PackedStringArray("color_picker_button", "height_slider", "height_value_label", "radius_slider", "radius_value_label", "character_preview_mesh")]
 layout_mode = 3
@@ -33,7 +301,36 @@ height_slider = NodePath("MarginContainer/VBoxContainer/GridContainer/HeightSlid
 height_value_label = NodePath("MarginContainer/VBoxContainer/GridContainer/HeightValueLabel")
 radius_slider = NodePath("MarginContainer/VBoxContainer/GridContainer/RadiusSlider")
 radius_value_label = NodePath("MarginContainer/VBoxContainer/GridContainer/RadiusValueLabel")
-character_preview_mesh = NodePath("MarginContainer/VBoxContainer/SubViewportContainer/SubViewport/World3D/CharacterPreviewMesh")
+character_preview_mesh = NodePath("MarginContainer/VBoxContainer/Stack/SubViewportContainer/SubViewport/World3D/CharacterPreviewMesh")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CloseButton" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 52.0
+offset_bottom = 52.0
+flat = true
+script = ExtResource("2_0inf3")
+input_action = "back"
+
+[node name="Background" type="AnimatedSprite2D" parent="Control/CloseButton"]
+position = Vector2(18, 18)
+sprite_frames = SubResource("SpriteFrames_8ghhc")
+autoplay = "default"
+
+[node name="Icon" type="AnimatedSprite2D" parent="Control/CloseButton"]
+position = Vector2(18, 18)
+sprite_frames = SubResource("SpriteFrames_k7hj5")
+animation = &"cross"
+autoplay = "cross"
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 z_index = 2
@@ -118,52 +415,87 @@ size_flags_horizontal = 2
 size_flags_vertical = 1
 text = "0.50"
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="MarginContainer/VBoxContainer"]
+[node name="Stack" type="Control" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(310, 0)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="MarginContainer/VBoxContainer/Stack"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_vertical = 3
 stretch = true
 stretch_shrink = 3
 
-[node name="SubViewport" type="SubViewport" parent="MarginContainer/VBoxContainer/SubViewportContainer"]
+[node name="SubViewport" type="SubViewport" parent="MarginContainer/VBoxContainer/Stack/SubViewportContainer"]
 handle_input_locally = false
-size = Vector2i(192, 113)
+size = Vector2i(103, 124)
 render_target_update_mode = 4
 
-[node name="World3D" type="Node3D" parent="MarginContainer/VBoxContainer/SubViewportContainer/SubViewport"]
+[node name="World3D" type="Node3D" parent="MarginContainer/VBoxContainer/Stack/SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 0)
 
-[node name="PreviewCamera" type="Camera3D" parent="MarginContainer/VBoxContainer/SubViewportContainer/SubViewport/World3D"]
+[node name="Ground" type="MeshInstance3D" parent="MarginContainer/VBoxContainer/Stack/SubViewportContainer/SubViewport/World3D"]
+transform = Transform3D(2.3343844e-08, -2.9802314e-08, 1.0000005, -6.7055254e-08, 1.0000005, -2.9802337e-08, -1, -2.9802308e-08, -1.390908e-08, 0, -1.0018439, -2.1957753)
+mesh = SubResource("PlaneMesh_8ghhc")
+skeleton = NodePath("../../../../Vignette")
+surface_material_override/0 = ExtResource("5_0ucl3")
+
+[node name="Background" type="MeshInstance3D" parent="MarginContainer/VBoxContainer/Stack/SubViewportContainer/SubViewport/World3D"]
+transform = Transform3D(-0.9919166, 0.12689146, -3.4593484e-10, -7.450581e-09, 8.940697e-08, 1.0000005, 0.1268914, 0.9919166, -1.201365e-07, -1.0171881, -0.22611356, -1.0183592)
+mesh = SubResource("PlaneMesh_ybc78")
+skeleton = NodePath("../../../../Vignette")
+surface_material_override/0 = ExtResource("6_8ghhc")
+
+[node name="PreviewCamera" type="Camera3D" parent="MarginContainer/VBoxContainer/Stack/SubViewportContainer/SubViewport/World3D"]
 transform = Transform3D(0.9617413, -0.10528124, 0.25292197, 0, 0.9232102, 0.38429534, -0.27395922, -0.3695927, 0.88788944, 0.6001462, 0.97054386, 2.1071212)
 fov = 60.5
 far = 10.0
 
-[node name="RimLight" type="DirectionalLight3D" parent="MarginContainer/VBoxContainer/SubViewportContainer/SubViewport/World3D"]
+[node name="RimLight" type="DirectionalLight3D" parent="MarginContainer/VBoxContainer/Stack/SubViewportContainer/SubViewport/World3D"]
 transform = Transform3D(-0.985996, 0.12295486, 0.112667374, 0, 0.6755902, -0.7372773, -0.1667688, -0.7269525, -0.66612923, 9.346, -15.021, -2.996)
+light_energy = 0.074
+shadow_enabled = true
 
-[node name="PreviewLight" type="DirectionalLight3D" parent="MarginContainer/VBoxContainer/SubViewportContainer/SubViewport/World3D"]
+[node name="PreviewLight" type="DirectionalLight3D" parent="MarginContainer/VBoxContainer/Stack/SubViewportContainer/SubViewport/World3D"]
 transform = Transform3D(0.7564007, 0.4129543, -0.50727385, 0, 0.7755194, 0.6313238, 0.6541085, -0.4775338, 0.5866034, -5.109613, 6.35913, 5.9086747)
+shadow_enabled = true
 
-[node name="CharacterPreviewMesh" type="MeshInstance3D" parent="MarginContainer/VBoxContainer/SubViewportContainer/SubViewport/World3D"]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="MarginContainer/VBoxContainer/Stack/SubViewportContainer/SubViewport/World3D"]
+environment = SubResource("Environment_0ucl3")
+
+[node name="CharacterPreviewMesh" type="MeshInstance3D" parent="MarginContainer/VBoxContainer/Stack/SubViewportContainer/SubViewport/World3D"]
 mesh = SubResource("CapsuleMesh_q0e82")
 
-[node name="Beanie" type="MeshInstance3D" parent="MarginContainer/VBoxContainer/SubViewportContainer/SubViewport/World3D/CharacterPreviewMesh"]
-transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 1.0000002, 0)
+[node name="Beanie" type="MeshInstance3D" parent="MarginContainer/VBoxContainer/Stack/SubViewportContainer/SubViewport/World3D/CharacterPreviewMesh"]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 1, 0)
 mesh = ExtResource("2_j7wju")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_ybc78")
 
-[node name="Mask" type="MeshInstance3D" parent="MarginContainer/VBoxContainer/SubViewportContainer/SubViewport/World3D/CharacterPreviewMesh/Beanie"]
+[node name="Mask" type="MeshInstance3D" parent="MarginContainer/VBoxContainer/Stack/SubViewportContainer/SubViewport/World3D/CharacterPreviewMesh/Beanie"]
 mesh = ExtResource("3_tftlr")
 surface_material_override/0 = SubResource("StandardMaterial3D_0ucl3")
 
-[node name="Eyes" type="MeshInstance3D" parent="MarginContainer/VBoxContainer/SubViewportContainer/SubViewport/World3D/CharacterPreviewMesh/Beanie/Mask"]
+[node name="Eyes" type="MeshInstance3D" parent="MarginContainer/VBoxContainer/Stack/SubViewportContainer/SubViewport/World3D/CharacterPreviewMesh/Beanie/Mask"]
 mesh = ExtResource("4_0inf3")
 surface_material_override/0 = SubResource("StandardMaterial3D_8ghhc")
 
-[node name="BackButon" type="Button" parent="MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Back to Menu"
+[node name="Vignette" type="ColorRect" parent="MarginContainer/VBoxContainer/Stack"]
+material = SubResource("ShaderMaterial_0ucl3")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.05490196, 0.07058824, 0.08627451, 1)
 
 [connection signal="color_changed" from="MarginContainer/VBoxContainer/GridContainer/ColorPickerButton" to="." method="_on_color_picker_button_color_changed"]
 [connection signal="value_changed" from="MarginContainer/VBoxContainer/GridContainer/HeightSlider" to="." method="_on_height_slider_value_changed"]
 [connection signal="value_changed" from="MarginContainer/VBoxContainer/GridContainer/RadiusSlider" to="." method="_on_radius_slider_value_changed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/BackButon" to="." method="_on_back_buton_pressed"]

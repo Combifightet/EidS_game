@@ -1,9 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://34txyxthjka1"]
+[gd_scene load_steps=8 format=3 uid="uid://34txyxthjka1"]
 
 [ext_resource type="Script" uid="uid://bj05ljxddehtx" path="res://scripts/main.gd" id="1_l6cm7"]
+[ext_resource type="StyleBox" uid="uid://bb4bai4108385" path="res://theme/button_style_normal.tres" id="2_wu84c"]
+[ext_resource type="StyleBox" uid="uid://domu1882ui01p" path="res://theme/button_style_pressed.tres" id="3_8ln24"]
+[ext_resource type="StyleBox" uid="uid://bt1prqylbw8bm" path="res://theme/button_style_hover.tres" id="4_rtw2f"]
+[ext_resource type="StyleBox" uid="uid://c0rp5s6ry2hyf" path="res://theme/button_style_disabled.tres" id="5_8ln24"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_l6cm7"]
 font_color = Color(1, 1, 1, 0.5)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8ln24"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -30,6 +36,11 @@ grow_vertical = 2
 
 [node name="Start Game" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_styles/normal = ExtResource("2_wu84c")
+theme_override_styles/pressed = ExtResource("3_8ln24")
+theme_override_styles/hover = ExtResource("4_rtw2f")
+theme_override_styles/disabled = ExtResource("5_8ln24")
+theme_override_styles/focus = ExtResource("4_rtw2f")
 text = "Start Game
 "
 
@@ -63,14 +74,25 @@ ticks_position = 3
 
 [node name="Character Editor" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_styles/normal = ExtResource("2_wu84c")
+theme_override_styles/pressed = ExtResource("3_8ln24")
+theme_override_styles/hover = ExtResource("4_rtw2f")
+theme_override_styles/disabled = ExtResource("5_8ln24")
+theme_override_styles/focus = ExtResource("4_rtw2f")
 text = "Character Editor"
 
 [node name="Quit Game" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_styles/normal = ExtResource("2_wu84c")
+theme_override_styles/pressed = ExtResource("3_8ln24")
+theme_override_styles/hover = ExtResource("4_rtw2f")
+theme_override_styles/disabled = ExtResource("5_8ln24")
+theme_override_styles/focus = ExtResource("4_rtw2f")
 text = "Quit"
 
 [node name="Credits" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_8ln24")
 text = "Credits"
 flat = true
 
