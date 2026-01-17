@@ -1,9 +1,10 @@
-[gd_scene load_steps=45 format=3 uid="uid://ncispgclo2qj"]
+[gd_scene load_steps=46 format=3 uid="uid://ncispgclo2qj"]
 
 [ext_resource type="Shader" uid="uid://dvvy4jkd0k21h" path="res://shaders/vignette.gdshader" id="1_2fbfq"]
 [ext_resource type="Script" uid="uid://o8gdssge6kmv" path="res://scripts/credits.gd" id="1_8gwij"]
 [ext_resource type="Script" uid="uid://db7b6070djg2j" path="res://scripts/input_button.gd" id="2_8gwij"]
 [ext_resource type="PackedScene" uid="uid://p4hc13wmrmsk" path="res://scenes/guard.tscn" id="2_mah5v"]
+[ext_resource type="PackedScene" uid="uid://3ifg7pybi4rq" path="res://scenes/player.tscn" id="3_kyhnv"]
 [ext_resource type="Texture2D" uid="uid://bkreqj3ce8f4b" path="res://assets/icon_buttons.png" id="3_mah5v"]
 [ext_resource type="Texture2D" uid="uid://caj2duyc277he" path="res://assets/icons.png" id="4_kyhnv"]
 
@@ -302,27 +303,27 @@ size = Vector2i(320, 180)
 render_target_update_mode = 4
 
 [node name="Guard" parent="SubViewportContainer/SubViewport" instance=ExtResource("2_mah5v")]
-transform = Transform3D(0.6845471, 0, -0.7289686, 0, 1, 0, 0.7289686, 0, 0.6845471, -4.022, 0, 56.882202)
+transform = Transform3D(0.6845471, 0, -0.7289686, 0, 1, 0, 0.7289686, 0, 0.6845471, -4.022, 0.17427301, 56.882202)
 vision_angle = 0.0
 view_dist = 0.0
 
 [node name="Guard2" parent="SubViewportContainer/SubViewport" instance=ExtResource("2_mah5v")]
-transform = Transform3D(0.9650119, 0, 0.26220608, 0, 1, 0, -0.26220608, 0, 0.9650119, 4.8035517, -3.737895, 56.68848)
+transform = Transform3D(0.9650119, 0, 0.26220608, 0, 1, 0, -0.26220608, 0, 0.9650119, 4.4985704, -3.737895, 56.68848)
 vision_angle = 0.0
 view_dist = 0.0
 
 [node name="Guard3" parent="SubViewportContainer/SubViewport" instance=ExtResource("2_mah5v")]
-transform = Transform3D(0.8687698, 0, -0.49521592, 0, 1, 0, 0.49521592, 0, 0.8687698, -4.3540883, -8.724174, 56.827854)
+transform = Transform3D(0.8687698, 0, -0.49521592, 0, 1, 0, 0.49521592, 0, 0.8687698, -4.3540883, -9.699648, 56.827854)
 vision_angle = 0.0
 view_dist = 0.0
 
 [node name="Guard4" parent="SubViewportContainer/SubViewport" instance=ExtResource("2_mah5v")]
-transform = Transform3D(0.39759627, 0, 0.91756046, 0, 1, 0, -0.91756046, 0, 0.39759627, 4.2378626, -13.721928, 56.65279)
+transform = Transform3D(0.39759627, 0, 0.91756046, 0, 1, 0, -0.91756046, 0, 0.39759627, 3.715043, -13.634789, 56.65279)
 vision_angle = 0.0
 view_dist = 0.0
 
 [node name="Guard5" parent="SubViewportContainer/SubViewport" instance=ExtResource("2_mah5v")]
-transform = Transform3D(3.239995, -0.0011563975, -0.0055353623, 0.00057577994, 3.2225106, -0.33619812, 0.0056254747, 0.33619666, 3.2225056, -0.007, -20.641674, 57.5368)
+transform = Transform3D(2.7599957, -0.0009850794, -0.004715309, 0.00049047923, 2.745101, -0.28639096, 0.0047920714, 0.28638968, 2.745097, -0.007, -20.222008, 57.5368)
 vision_angle = 0.0
 view_dist = 0.0
 
@@ -344,6 +345,9 @@ environment = SubResource("Environment_ooihk")
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, -26.616531, 62.66059)
 mesh = SubResource("PlaneMesh_ih6pn")
 surface_material_override/0 = SubResource("StandardMaterial3D_mah5v")
+
+[node name="player" parent="SubViewportContainer/SubViewport" instance=ExtResource("3_kyhnv")]
+transform = Transform3D(-1.763523, -0.07136037, -0.80529165, 2.2438497e-08, 1.9324278, -0.17124082, 0.80844724, -0.15566348, -1.7566395, 3.8135147, -0.795885, 59.056717)
 
 [node name="Text" type="Control" parent="."]
 layout_mode = 1

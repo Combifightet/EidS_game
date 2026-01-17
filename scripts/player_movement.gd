@@ -87,7 +87,7 @@ func _load_character_data() -> void:
 		# Get saved values, using defaults if a key is missing
 		var new_height = loaded_data.get("height", 2.0)
 		var new_radius = loaded_data.get("radius", 0.5)
-		var new_color = Color(loaded_data.get("color", "#ffffff"))
+		var new_color = Color(loaded_data.get("color", "#f7d4a7"))
 		
 		# Apply to the mesh resource
 		if mesh and mesh.mesh is CapsuleMesh:

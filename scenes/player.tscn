@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://3ifg7pybi4rq"]
+[gd_scene load_steps=11 format=3 uid="uid://3ifg7pybi4rq"]
 
 [ext_resource type="Script" uid="uid://c2r22wr000sgt" path="res://scripts/player_movement.gd" id="1_3vyb7"]
 [ext_resource type="ArrayMesh" uid="uid://bjkbpg48ws7yw" path="res://assets/player/beanie.obj" id="2_dqkch"]
@@ -6,10 +6,12 @@
 [ext_resource type="ArrayMesh" uid="uid://cdy8eltb04onu" path="res://assets/player/eyes.obj" id="4_tuyoq"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_g2els"]
-radius = 0.25
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fjrip"]
+albedo_color = Color(0.96862745, 0.83137256, 0.654902, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_qhqgy"]
-radius = 0.25
+material = SubResource("StandardMaterial3D_fjrip")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dqkch"]
 albedo_color = Color(0.015686275, 0.015686275, 0.015686275, 1)
@@ -39,7 +41,7 @@ layers = 2
 mesh = SubResource("CapsuleMesh_qhqgy")
 
 [node name="Beanie" type="MeshInstance3D" parent="CollisionShape3D/Player"]
-transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 1.4285715, 0)
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 1.0000002, 0)
 mesh = ExtResource("2_dqkch")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_dqkch")

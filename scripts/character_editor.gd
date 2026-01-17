@@ -15,6 +15,8 @@ const SAVE_FILE_PATH = "user://character_data.json"
 var _preview_material: StandardMaterial3D
 var _is_loading: bool = false
 
+@onready var beanie: MeshInstance3D = $MarginContainer/VBoxContainer/SubViewportContainer/SubViewport/World3D/CharacterPreviewMesh/Beanie
+
 func _ready() -> void:
 	
 	_load_data()
@@ -41,6 +43,8 @@ func _on_height_slider_value_changed(new_height: float) -> void:
 	if character_preview_mesh and character_preview_mesh.mesh is CapsuleMesh:
 		var capsule_mesh: CapsuleMesh = character_preview_mesh.mesh
 		capsule_mesh.height = new_height
+		
+		beanie.position = character_preview_mesh.position + Vector3(0,new_height/2,0)
 	
 	if height_value_label:
 		height_value_label.text = "%.2f" % new_height
@@ -48,6 +52,22 @@ func _on_height_slider_value_changed(new_height: float) -> void:
 	height_changed.emit(new_height)
 	
 	_save_data()
+	
+	if new_height < radius_slider.value*3:
+		var new_radius: float = new_height/3
+		radius_slider.value = new_radius
+		if character_preview_mesh and character_preview_mesh.mesh is CapsuleMesh:
+			var capsule_mesh: CapsuleMesh = character_preview_mesh.mesh
+			capsule_mesh.radius = new_radius
+			
+			beanie.scale = Vector3.ONE * new_radius/0.5
+
+		if radius_value_label:
+			radius_value_label.text = "%.2f" % new_radius
+		
+		radius_changed.emit(new_radius)
+		
+		_save_data()
 
 
 func _on_radius_slider_value_changed(new_radius: float) -> void:
@@ -55,11 +75,29 @@ func _on_radius_slider_value_changed(new_radius: float) -> void:
 	if character_preview_mesh and character_preview_mesh.mesh is CapsuleMesh:
 		var capsule_mesh: CapsuleMesh = character_preview_mesh.mesh
 		capsule_mesh.radius = new_radius
+		
+		beanie.scale = Vector3.ONE * new_radius/0.5
 
 	if radius_value_label:
 		radius_value_label.text = "%.2f" % new_radius
 	
 	radius_changed.emit(new_radius)
+	
+	if new_radius*3 > height_slider.value:
+		var new_height: float = new_radius*3
+		height_slider.value = new_height
+		if character_preview_mesh and character_preview_mesh.mesh is CapsuleMesh:
+			var capsule_mesh: CapsuleMesh = character_preview_mesh.mesh
+			capsule_mesh.height = new_height
+			
+			beanie.position = character_preview_mesh.position + Vector3(0,new_height/2,0)
+		
+		if height_value_label:
+			height_value_label.text = "%.2f" % new_height
+		
+		height_changed.emit(new_height)
+		
+		_save_data()
 	
 	_save_data()
 

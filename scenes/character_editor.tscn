@@ -1,8 +1,24 @@
-[gd_scene load_steps=3 format=3 uid="uid://cr8g4ismbp5vt"]
+[gd_scene load_steps=10 format=3 uid="uid://cr8g4ismbp5vt"]
 
 [ext_resource type="Script" uid="uid://koeg41l7lnxg" path="res://scripts/character_editor.gd" id="1_arwnc"]
+[ext_resource type="ArrayMesh" uid="uid://bjkbpg48ws7yw" path="res://assets/player/beanie.obj" id="2_j7wju"]
+[ext_resource type="ArrayMesh" uid="uid://4j7hne05j3dn" path="res://assets/player/mask.obj" id="3_tftlr"]
+[ext_resource type="ArrayMesh" uid="uid://cdy8eltb04onu" path="res://assets/player/eyes.obj" id="4_0inf3"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ixtqs"]
+font_size = 24
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_q0e82"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ybc78"]
+albedo_color = Color(0.015686275, 0.015686275, 0.015686275, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0ucl3"]
+albedo_color = Color(0.007843138, 0.007843138, 0.007843138, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8ghhc"]
+albedo_color = Color(0.9503382, 0.9576579, 0.91124964, 1)
+roughness = 0.15
 
 [node name="CharacterEditor" type="Control" node_paths=PackedStringArray("color_picker_button", "height_slider", "height_value_label", "radius_slider", "radius_value_label", "character_preview_mesh")]
 layout_mode = 3
@@ -22,21 +38,27 @@ character_preview_mesh = NodePath("MarginContainer/VBoxContainer/SubViewportCont
 [node name="MarginContainer" type="MarginContainer" parent="."]
 z_index = 2
 layout_mode = 0
-offset_right = 512.0
-offset_bottom = 663.0
+offset_left = 191.0
+offset_top = 20.0
+offset_right = 769.0
+offset_bottom = 521.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
+alignment = 1
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Character Editor"
+label_settings = SubResource("LabelSettings_ixtqs")
+horizontal_alignment = 1
 
 [node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 
 [node name="GridContainer" type="GridContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 0
 columns = 3
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/GridContainer"]
@@ -98,22 +120,44 @@ text = "0.50"
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
+stretch = true
+stretch_shrink = 3
 
 [node name="SubViewport" type="SubViewport" parent="MarginContainer/VBoxContainer/SubViewportContainer"]
 handle_input_locally = false
-size = Vector2i(512, 382)
+size = Vector2i(192, 113)
 render_target_update_mode = 4
 
 [node name="World3D" type="Node3D" parent="MarginContainer/VBoxContainer/SubViewportContainer/SubViewport"]
 
 [node name="PreviewCamera" type="Camera3D" parent="MarginContainer/VBoxContainer/SubViewportContainer/SubViewport/World3D"]
-transform = Transform3D(0.96175134, -0.13653913, 0.23746897, 0, 0.8669151, 0.4984559, -0.27392417, -0.47939065, 0.8337567, 0.6001462, 1.2597284, 2.1071212)
+transform = Transform3D(0.9617413, -0.10528124, 0.25292197, 0, 0.9232102, 0.38429534, -0.27395922, -0.3695927, 0.88788944, 0.6001462, 0.97054386, 2.1071212)
+fov = 60.5
+far = 10.0
+
+[node name="RimLight" type="DirectionalLight3D" parent="MarginContainer/VBoxContainer/SubViewportContainer/SubViewport/World3D"]
+transform = Transform3D(-0.985996, 0.12295486, 0.112667374, 0, 0.6755902, -0.7372773, -0.1667688, -0.7269525, -0.66612923, 9.346, -15.021, -2.996)
 
 [node name="PreviewLight" type="DirectionalLight3D" parent="MarginContainer/VBoxContainer/SubViewportContainer/SubViewport/World3D"]
 transform = Transform3D(0.7564007, 0.4129543, -0.50727385, 0, 0.7755194, 0.6313238, 0.6541085, -0.4775338, 0.5866034, -5.109613, 6.35913, 5.9086747)
 
 [node name="CharacterPreviewMesh" type="MeshInstance3D" parent="MarginContainer/VBoxContainer/SubViewportContainer/SubViewport/World3D"]
 mesh = SubResource("CapsuleMesh_q0e82")
+
+[node name="Beanie" type="MeshInstance3D" parent="MarginContainer/VBoxContainer/SubViewportContainer/SubViewport/World3D/CharacterPreviewMesh"]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 1.0000002, 0)
+mesh = ExtResource("2_j7wju")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_ybc78")
+
+[node name="Mask" type="MeshInstance3D" parent="MarginContainer/VBoxContainer/SubViewportContainer/SubViewport/World3D/CharacterPreviewMesh/Beanie"]
+mesh = ExtResource("3_tftlr")
+surface_material_override/0 = SubResource("StandardMaterial3D_0ucl3")
+
+[node name="Eyes" type="MeshInstance3D" parent="MarginContainer/VBoxContainer/SubViewportContainer/SubViewport/World3D/CharacterPreviewMesh/Beanie/Mask"]
+mesh = ExtResource("4_0inf3")
+surface_material_override/0 = SubResource("StandardMaterial3D_8ghhc")
 
 [node name="BackButon" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
