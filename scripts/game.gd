@@ -7,10 +7,81 @@ var floorplan_gen: FloorPlanGen
 
 const GRID_SUBDIVISIONS: int = 1
 
+@onready var progress_bar: TextureProgressBar = $LoadingScreen/ColorRect/ProgressBar
+@onready var loading_screen: Control = $LoadingScreen
+@onready var level_gen: LevelGen = %PixelViewport/Level
+var elapsed: float = 0
+
+var tween: Tween
+var animation_duration: float = 1.5
+
+var world: WorldGen
+var connectivity: Dictionary[Vector2i, Array]
 
 func _ready() -> void:
+	print("game loaded")
+	start_loading_animation()
 
+func _process(delta: float) -> void:
+	if elapsed <= 0.5:
+		elapsed += delta
+		if elapsed >= 0.5:
+			print("setting up level")
+			var thread = Thread.new()
+			thread.start(_setup_level)
+			#_setup_level()
+			#print("level setup complete")
+			
+
+func start_loading_animation() -> void:
+	loading_screen.visible = true
+	progress_bar.value = 0
 	
+	# Kill any existing tween
+	if tween:
+		tween.kill()
+	
+	# Create looping tween animation
+	tween = create_tween()
+	tween.set_loops()  # Loop infinitely
+	tween.tween_property(progress_bar, "value", progress_bar.max_value, animation_duration).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
+	tween.tween_property(progress_bar, "value",  progress_bar.min_value, animation_duration).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
+
+
+func stop_loading_animation() -> void:
+	var patrol_points = level_gen.from_grid(
+		%Player,
+		world.grid,
+		world.doors,
+		GRID_SUBDIVISIONS
+	)
+	
+	level_gen.place_single_guard(
+		world.grid, 
+		player_node, 
+		connectivity, 
+		Vector3(world.grid.origin.x, 0, world.grid.origin.y), 
+		world.grid.grid_resolution,
+		patrol_points
+	)
+	print("finished level setup")
+	
+	await get_tree().create_timer(0.5).timeout
+	
+	if tween:
+		tween.kill()
+	loading_screen.visible = false
+
+func setup_grid_transform(origin: Vector2, resolution: float) -> void:
+	player_node.setup_grid_transform(origin, resolution)
+
+func set_player_global_position(pos: Vector3) -> void:
+	player_node.global_position = pos
+
+func set_level_gen_position(pos: Vector3) -> void:
+	level_gen.position = pos
+
+func _setup_level() -> void:
 	floorplan_gen = FloorPlanGen.new()
 	#floorplan_gen.set_seed(7)
 	randomize()
@@ -22,18 +93,21 @@ func _ready() -> void:
 	var grid: FloorPlanGrid = floorplan_gen.get_grid()
 
 	# overwrite the old grid with the generated surroundings
-	var world: WorldGen = WorldGen.new(grid, floorplan_gen._doors_list, floorplan_gen.building_outline)
+	world = WorldGen.new(grid, floorplan_gen._doors_list, floorplan_gen.building_outline)
 		
 	# --- Setup the Player ---
 	var connectivity_og: Dictionary[Vector2i, Array] = FloorPlanGen.get_connectivity_dict(world.grid, world.doors)
-	var connectivity: Dictionary[Vector2i, Array] = FloorPlanGen.get_connectivity_dict(world.grid, world.doors, GRID_SUBDIVISIONS)
+	connectivity = FloorPlanGen.get_connectivity_dict(world.grid, world.doors, GRID_SUBDIVISIONS)
 	
 	if not player_node:
 		printerr("Player node not assigned in main.gd!")
+		call_deferred("stop_loading_animation")
+		get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
 		return
-		
+	
 	# Pass the grid's transform and connectivity data to the player
-	player_node.setup_grid_transform(world.grid.origin, world.grid.grid_resolution)
+	#player_node.setup_grid_transform(world.grid.origin, world.grid.grid_resolution)
+	call_deferred("setup_grid_transform", world.grid.origin, world.grid.grid_resolution)
 	player_node.setup_pathfinding_graph(connectivity)
 	
 # 1. Get all valid, walkable cells from the connectivity data
@@ -56,7 +130,8 @@ func _ready() -> void:
 	var world_z = (float(top_left_cell.y) / grid_resolution) + grid_origin.y
 	
 	# 5. Set the player's position, using the correct height
-	player_node.global_position = Vector3(world_x, 0.7, world_z)
+	#player_node.global_position = Vector3(world_x, 0.7, world_z)
+	call_deferred("set_player_global_position", Vector3(world_x, 0.7, world_z))
 	
 	# --- This console debug print is still useful ---
 	FloorPlanGrid.print_grid(world.grid)
@@ -66,24 +141,11 @@ func _ready() -> void:
 	print("\n\nconnectivity (original):")
 	print(dict_connections_to_grid_string(connectivity_og))
 	
-	var level_gen: LevelGen = %PixelViewport/Level
-	level_gen.position = Vector3(world.grid.origin.x, 0, world.grid.origin.y)
 	
-	var patrol_points = level_gen.from_grid(
-		%Player,
-		world.grid,
-		world.doors,
-		GRID_SUBDIVISIONS
-	)
+	#level_gen.position = Vector3(world.grid.origin.x, 0, world.grid.origin.y)
+	call_deferred("set_level_gen_position", Vector3(world.grid.origin.x, 0, world.grid.origin.y))
 	
-	level_gen.place_single_guard(
-		world.grid, 
-		player_node, 
-		connectivity, 
-		Vector3(world.grid.origin.x, 0, world.grid.origin.y), 
-		world.grid.grid_resolution,
-		patrol_points
-	)
+	call_deferred("stop_loading_animation")
 
 
 

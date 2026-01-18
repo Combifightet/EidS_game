@@ -23,7 +23,7 @@ func _ready() -> void:
 	#custom_grid_map.set_cell_item(Vector3(0,0,0), tile_id)
 
 func _process(_delta: float) -> void:
-	if player_ref.points > 0:
+	if player_ref and player_ref.points > 0:
 		level_exit.open_exit()
 
 

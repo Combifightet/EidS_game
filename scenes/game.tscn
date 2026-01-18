@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://c8r4kfj1lcsea"]
+[gd_scene load_steps=63 format=3 uid="uid://c8r4kfj1lcsea"]
 
 [ext_resource type="Script" uid="uid://dm8bpjnp7uu0a" path="res://scripts/game.gd" id="1_u5sy4"]
 [ext_resource type="PackedScene" uid="uid://3ifg7pybi4rq" path="res://scenes/player.tscn" id="2_gee14"]
@@ -11,6 +11,9 @@
 [ext_resource type="Texture2D" uid="uid://bkreqj3ce8f4b" path="res://assets/icon_buttons.png" id="9_0tnpc"]
 [ext_resource type="Script" uid="uid://db7b6070djg2j" path="res://scripts/input_button.gd" id="9_kvpfn"]
 [ext_resource type="Texture2D" uid="uid://caj2duyc277he" path="res://assets/icons.png" id="10_vtaks"]
+[ext_resource type="Texture2D" uid="uid://sa84s8ayuttg" path="res://assets/progress_bar_background.png" id="12_trtic"]
+[ext_resource type="Texture2D" uid="uid://dnkbx2rdsrv3d" path="res://assets/progress_bar_outline.png" id="13_ir15t"]
+[ext_resource type="Texture2D" uid="uid://bo4p24w3rvrko" path="res://assets/progress_bar.png" id="14_ca42v"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_o6xl0"]
 
@@ -387,6 +390,21 @@ animations = [{
 "speed": 6.0
 }]
 
+[sub_resource type="LabelSettings" id="LabelSettings_rysoc"]
+font_size = 46
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7025r"]
+atlas = ExtResource("12_trtic")
+region = Rect2(0, 0, 512, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m4url"]
+atlas = ExtResource("13_ir15t")
+region = Rect2(0, 0, 512, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ool0"]
+atlas = ExtResource("14_ca42v")
+region = Rect2(0, 0, 512, 32)
+
 [node name="Game" type="Control" node_paths=PackedStringArray("player_node")]
 layout_mode = 3
 anchors_preset = 15
@@ -569,3 +587,57 @@ rotation = 3.1415927
 sprite_frames = SubResource("SpriteFrames_vtaks")
 animation = &"arrow"
 autoplay = "arrow"
+
+[node name="LoadingScreen" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="LoadingScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.078431375, 0.09019608, 0.12156863, 1)
+
+[node name="LoadingLabel" type="Label" parent="LoadingScreen/ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -125.5
+offset_top = -45.0
+offset_right = 187.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Loading . . ."
+label_settings = SubResource("LabelSettings_rysoc")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ProgressBar" type="TextureProgressBar" parent="LoadingScreen/ColorRect"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -256.0
+offset_top = -139.0
+offset_right = 256.0
+grow_horizontal = 2
+grow_vertical = 0
+step = 0.5
+value = 39.0
+texture_under = SubResource("AtlasTexture_7025r")
+texture_over = SubResource("AtlasTexture_m4url")
+texture_progress = SubResource("AtlasTexture_8ool0")
