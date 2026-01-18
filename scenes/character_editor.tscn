@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://cr8g4ismbp5vt"]
+[gd_scene load_steps=55 format=3 uid="uid://cr8g4ismbp5vt"]
 
 [ext_resource type="Script" uid="uid://koeg41l7lnxg" path="res://scripts/character_editor.gd" id="1_arwnc"]
 [ext_resource type="Script" uid="uid://db7b6070djg2j" path="res://scripts/input_button.gd" id="2_0inf3"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://caj2duyc277he" path="res://assets/icons.png" id="4_0ucl3"]
 [ext_resource type="Material" uid="uid://21ytbbu1heo5" path="res://materials/floor_material.tres" id="5_0ucl3"]
 [ext_resource type="Material" uid="uid://ypqxf5j3y1ln" path="res://materials/wall_material.tres" id="6_8ghhc"]
+[ext_resource type="Shader" uid="uid://bw4whiuaytnqh" path="res://shaders/edge_detection.gdshader" id="7_k7hj5"]
 [ext_resource type="Shader" uid="uid://dvvy4jkd0k21h" path="res://shaders/vignette.gdshader" id="8_ybc78"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0tnpc"]
@@ -266,6 +267,17 @@ size = Vector2(10, 10)
 [sub_resource type="PlaneMesh" id="PlaneMesh_ybc78"]
 size = Vector2(10, 10)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tipki"]
+render_priority = 0
+shader = ExtResource("7_k7hj5")
+shader_parameter/lineHighlight = 0.02999999932944
+shader_parameter/lineShadow = 0.5999999865888
+
+[sub_resource type="QuadMesh" id="QuadMesh_obqqa"]
+material = SubResource("ShaderMaterial_tipki")
+flip_faces = true
+size = Vector2(3, 2)
+
 [sub_resource type="Environment" id="Environment_0ucl3"]
 background_mode = 1
 background_color = Color(0.14509805, 0.16862746, 0.20392157, 1)
@@ -456,6 +468,10 @@ surface_material_override/0 = ExtResource("6_8ghhc")
 transform = Transform3D(0.9617413, -0.10528124, 0.25292197, 0, 0.9232102, 0.38429534, -0.27395922, -0.3695927, 0.88788944, 0.6001462, 0.97054386, 2.1071212)
 fov = 60.5
 far = 10.0
+
+[node name="PostProcessing" type="MeshInstance3D" parent="MarginContainer/VBoxContainer/Stack/SubViewportContainer/SubViewport/World3D/PreviewCamera"]
+layers = 32
+mesh = SubResource("QuadMesh_obqqa")
 
 [node name="RimLight" type="DirectionalLight3D" parent="MarginContainer/VBoxContainer/Stack/SubViewportContainer/SubViewport/World3D"]
 transform = Transform3D(-0.985996, 0.12295486, 0.112667374, 0, 0.6755902, -0.7372773, -0.1667688, -0.7269525, -0.66612923, 9.346, -15.021, -2.996)

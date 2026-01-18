@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://ncispgclo2qj"]
+[gd_scene load_steps=54 format=3 uid="uid://ncispgclo2qj"]
 
 [ext_resource type="Shader" uid="uid://dvvy4jkd0k21h" path="res://shaders/vignette.gdshader" id="1_2fbfq"]
 [ext_resource type="Script" uid="uid://o8gdssge6kmv" path="res://scripts/credits.gd" id="1_8gwij"]
@@ -6,7 +6,19 @@
 [ext_resource type="PackedScene" uid="uid://p4hc13wmrmsk" path="res://scenes/guard.tscn" id="2_mah5v"]
 [ext_resource type="PackedScene" uid="uid://3ifg7pybi4rq" path="res://scenes/player.tscn" id="3_kyhnv"]
 [ext_resource type="Texture2D" uid="uid://bkreqj3ce8f4b" path="res://assets/icon_buttons.png" id="3_mah5v"]
+[ext_resource type="Shader" uid="uid://bw4whiuaytnqh" path="res://shaders/edge_detection.gdshader" id="3_ooihk"]
 [ext_resource type="Texture2D" uid="uid://caj2duyc277he" path="res://assets/icons.png" id="4_kyhnv"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ih6pn"]
+render_priority = 0
+shader = ExtResource("3_ooihk")
+shader_parameter/lineHighlight = 0.02999999932944
+shader_parameter/lineShadow = 0.5999999865888
+
+[sub_resource type="QuadMesh" id="QuadMesh_7lgdl"]
+material = SubResource("ShaderMaterial_ih6pn")
+flip_faces = true
+size = Vector2(3, 2)
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_kyhnv"]
 
@@ -340,6 +352,11 @@ view_dist = 0.0
 [node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport"]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
 fov = 6.2
+
+[node name="PostProcessing" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.3048714e-08, 0, -0.37803322)
+layers = 32
+mesh = SubResource("QuadMesh_7lgdl")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewportContainer/SubViewport"]
 transform = Transform3D(-0.92387974, 0.27059802, -0.27059802, 0, 0.70710677, 0.70710677, 0.38268322, 0.65328157, -0.65328157, 0, 5, 0)
