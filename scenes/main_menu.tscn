@@ -96,6 +96,22 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_8ln24")
 text = "Credits"
 flat = true
 
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -245.095
+offset_bottom = -130.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "[color=#dadee6]
+[font_size=48][b]Enter in disguise, Steal![/b][/font_size]
+[/color]"
+horizontal_alignment = 1
+
 [connection signal="pressed" from="VBoxContainer/Start Game" to="." method="_on_start_game_pressed"]
 [connection signal="value_changed" from="VBoxContainer/DifficultyHSlider" to="." method="_on_difficulty_h_slider_value_changed"]
 [connection signal="pressed" from="VBoxContainer/Character Editor" to="." method="_on_character_editor_pressed"]

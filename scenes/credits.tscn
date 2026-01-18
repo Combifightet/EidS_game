@@ -373,14 +373,15 @@ anchors_preset = 14
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_top = -111.0
-offset_bottom = 1592.0
+offset_top = -158.095
+offset_bottom = 1565.38
 grow_horizontal = 2
 grow_vertical = 2
 bbcode_enabled = true
 text = "[color=#dadee6]
 
-[font_size=64][b]GAME TITLE[/b][/font_size]
+[font_size=48][b]Enter in disguise,
+Steal![/b][/font_size]
 Made with Godot
 
 [hr]
@@ -436,7 +437,7 @@ Made with Godot
 
 
 
-[font_size=18][i]© 2026 JMN Studio
+[font_size=16][i]© 2026 JMN Studio
 All rights reserved[/i][/font_size]
 
 

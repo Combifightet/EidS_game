@@ -10,13 +10,13 @@ config_version=5
 
 [application]
 
-config/name="EidS game"
+config/name="Enter in disguise, Steal!"
 config/tags=PackedStringArray("ovgu")
 run/main_scene="uid://34txyxthjka1"
 config/features=PackedStringArray("4.5", "Forward Plus")
 boot_splash/bg_color=Color(0.078431375, 0.09019608, 0.12156863, 1)
 boot_splash/image="uid://2b7wpesrq4r3"
-config/icon="uid://cjveh26uqowbg"
+config/icon="uid://2b7wpesrq4r3"
 boot_splash/minimum_display_time=1600
 
 [autoload]

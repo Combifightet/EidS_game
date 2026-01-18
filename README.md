@@ -6,4 +6,4 @@
 
 ## Game Concept Document
 
-> see [game_concept.md](/game_concept.md)
+> see [game_concept_document.md](/game_concept_document.md)
