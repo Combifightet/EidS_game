@@ -6,7 +6,7 @@ For our submission to the "Einführung in digitale Spiele" (EidS) module
 
 ## Team
 
-- Jan Hei???
+- Jan-Alexander Heitmann
 - Malte Heiß
 - Nikiforos Tompoulidis
 
@@ -30,6 +30,12 @@ An isometric singleplayer pixel-art stealth game where every heist is different.
 - **Players:**
   - Single-player
 
+## Visual Style
+
+- Isometric camera angle
+- 3D pixelart
+- Simple graphics
+
 ## Platform
 
 For the first full version we will solely focus on a Windows 10/11 release
@@ -47,8 +53,6 @@ For the first full version we will solely focus on a Windows 10/11 release
 - Grid based moovement using mouse interaction _(`lmb`)_
 - Enemy pathfinding
 - Camera rotation _(`q` and `e` or on screen buttons)_
-
-## ToDo: More infos
 
 ## Appendix
 

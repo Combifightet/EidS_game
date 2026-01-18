@@ -146,7 +146,16 @@ func setup_navigation(origin: Vector3, resolution: float, grid_data: Dictionary)
 				astar_graph.connect_points(from_id, to_id, false)
 
 func set_patrol_path(points: Array[Vector2i]) -> void:
-	patrol_points = points
+	
+	var scaled_points: Array[Vector2i] = []
+	
+	var scale_factor = int(_grid_resolution)
+	
+	for p in points:
+		scaled_points.append(p * scale_factor)
+	
+	patrol_points = scaled_points
+	
 	current_patrol_index = 0
 
 func _process_patrol_movement() -> void:

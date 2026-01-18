@@ -111,7 +111,7 @@ func from_grid(player: PlayerMovement, floor_plan_grid: FloorPlanGrid, doors: Ar
 	custom_grid_map.scale *= Vector3(subd_scale, 1, subd_scale)
 	custom_grid_map.grid_scale = 1/grid_size*subd_scale
 	
-	_place_collectibles(floor_plan_grid, doors)
+	var patrol_points = _place_collectibles(floor_plan_grid, doors)
 	
 	_extend_border()
 	
@@ -119,7 +119,9 @@ func from_grid(player: PlayerMovement, floor_plan_grid: FloorPlanGrid, doors: Ar
 	player.teleport_to_nearest_cell(
 		Vector3(exit_pos.x, 0, exit_pos.y)+global_position
 	)
-	return _guard_spawn_points(floor_plan_grid)
+	print("LEVEL PAT POINTS")
+	print(patrol_points)
+	return patrol_points
 
 
 func _place_exit(floor_plan_grid: FloorPlanGrid, doors: Array[FloorPlanGen.Door]) -> Vector2i:
@@ -166,7 +168,7 @@ func _place_exit(floor_plan_grid: FloorPlanGrid, doors: Array[FloorPlanGen.Door]
 
 
 
-func _place_collectibles(floor_plan_grid: FloorPlanGrid, doors: Array[FloorPlanGen.Door]):
+func _place_collectibles(floor_plan_grid: FloorPlanGrid, doors: Array[FloorPlanGen.Door])-> Array[Vector2i]:
 	var rooms: Dictionary[int, Vector2i] = {}
 	for room_pos in floor_plan_grid._room_dict.keys():
 		rooms[floor_plan_grid._room_dict[room_pos].id] = room_pos
@@ -230,6 +232,11 @@ func _place_collectibles(floor_plan_grid: FloorPlanGrid, doors: Array[FloorPlanG
 		add_child(collectible)
 		var pos: Vector2i = collectible_pos[i]
 		collectible.position = Vector3(pos.x, 0, pos.y)
+		
+		
+	print("LEVEL COL POINTS")
+	print(collectible_pos)
+	return collectible_pos
 
 
 
@@ -248,12 +255,17 @@ func place_single_guard(floor_plan_grid: FloorPlanGrid, target_player: Node3D,
 	# Get the center coordinate of that room
 	var grid_pos: Vector2i = floor_plan_grid.get_room_center(room_id)
 	
+	var visual_resolution = 1.0 / custom_grid_map.scale.x
+	
 	# Instantiate the guard
 	var guard_instance = _guard_scene.instantiate()
 	add_child(guard_instance)
 	
 	# Position the guard
-	guard_instance.global_position = Vector3(grid_pos.x, 1.0, grid_pos.y)
+	guard_instance.position = Vector3(
+		float(grid_pos.x) / visual_resolution, 
+		1.0, 
+		float(grid_pos.y) / visual_resolution)
 	
 	# Rotate guard randomly (0, 90, 180, or 270 degrees)
 	var random_rot = (randi() % 4) * 90.0
