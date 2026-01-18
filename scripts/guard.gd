@@ -9,6 +9,7 @@ class_name Guard
 @export var detection_time: float = 0.5 ## time to be caught in seconds
 @export var eyes_height: float = 0.5
 @export var move_duration: float = 0.4 # How fast the guard moves between tiles
+@export var rotation_duration: float = 0.15 # How fast the guard rotates towards movement direction
 
 # --- References ---
 @onready var vision_area: Area3D = $VisionArea
@@ -34,6 +35,7 @@ var current_patrol_index: int = 0
 var current_path: PackedVector2Array = []
 var is_moving: bool = false
 var active_tween: Tween
+var rotation_tween: Tween
 
 func _ready() -> void:
 	ray_cast.add_exception(self)
@@ -109,6 +111,8 @@ func check_vision(delta: float) -> void:
 			# Stop moving if we see the player!
 			if active_tween and active_tween.is_running():
 				active_tween.kill()
+			if rotation_tween and rotation_tween.is_running():
+				rotation_tween.kill()
 			is_moving = false
 			
 			if detection_timer >= detection_time:
@@ -120,6 +124,9 @@ func check_vision(delta: float) -> void:
 			_set_cone_color(Color(0.0, 0.5, 1.0, 0.3))
 		
 		update_indicator()
+	else:
+		is_alert = false # Resume patrol in next frame
+		_set_cone_color(Color(0.0, 0.5, 1.0, 0.3))
 
 # --- Movement System (Adapted from PlayerMovement) ---
 
@@ -192,9 +199,22 @@ func _move_to_next_step() -> void:
 	
 	var target_pos = _grid_to_world(next_cell)
 	
-	# Look at target
-	look_at(Vector3(target_pos.x, global_position.y, target_pos.z), Vector3.UP)
+	# Calculate direction towards target (similar to player)
+	var direction = (target_pos - global_position).normalized()
+	var target_angle = atan2(direction.x, direction.z) + PI  # Add 180° rotation
 	
+	# Smoothly rotate towards movement direction
+	rotation_tween = create_tween()
+	rotation_tween.set_parallel(true)  # Run alongside position tween
+	
+	var current_angle = rotation.y
+	var angle_diff = angle_difference(current_angle, target_angle)
+	var new_angle = current_angle + angle_diff
+	
+	rotation_tween.tween_property(self, "rotation:y", new_angle, rotation_duration)
+	rotation_tween.set_trans(Tween.TRANS_SINE)
+	
+	# Create position tween
 	active_tween = create_tween()
 	active_tween.tween_property(self, "global_position", target_pos, move_duration)
 	active_tween.set_trans(Tween.TRANS_LINEAR)
@@ -220,7 +240,7 @@ func update_indicator() -> void:
 		spot_indicator.text = ""
 
 func game_over() -> void:
-	
+	AudioController.stop_walk()
 	AudioController.play_lost()
 	
 	print("GAME OVER")
