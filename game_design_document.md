@@ -36,9 +36,11 @@ An isometric singleplayer pixel-art stealth game where every heist is different.
 - 3D pixelart
 - Simple graphics
 
-## Platform
+## Setting
 
-For the first full version we will solely focus on a Windows 10/11 release
+The player is a member of a small underground crime organization that focuses on theft. For the duration of a run he should be constantly weary of his surroundings and plan carefully.
+
+As a new member of their gang, the player is tasked with the theft of valuable objects from the sourrounding houses.
 
 ## Features
 
@@ -58,6 +60,6 @@ For the first full version we will solely focus on a Windows 10/11 release
 
 Grid basesd procedural room generation:
 
-<img src="./assets/room_gen_example.png" alt="Room generation example" width="600" height="600"> 
+<img src="./assets/room_gen_example.png" alt="Room generation example" width="550" height="550"> 
 
 > all rescources have been custom made by the team for this project
