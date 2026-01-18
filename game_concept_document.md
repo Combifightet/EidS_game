@@ -15,7 +15,7 @@ For our submission to the "Einführung in digitale Spiele" (EidS) module
 **Game Title:** "`Enter in disguise, Steal!`"
 
 **Game Icon:** \
-![Game Icon](https://github.com/Combifightet/EidS_game/blob/main/assets/icon.png)
+![Game Icon](https://media.githubusercontent.com/media/Combifightet/EidS_game/main/assets/icon.png)
 
 ## Concept Statement
 
@@ -54,6 +54,6 @@ For the first full version we will solely focus on a Windows 10/11 release
 
 Grid basesd procedural room generation:
 
-![Room generation example](https://github.com/Combifightet/EidS_game/blob/main/assets/room_gen_example.png)
+![Room generation example](https://media.githubusercontent.com/media/Combifightet/EidS_game/main/assets/room_gen_example.png)
 
 > all rescources have been custom made by the team for this project
