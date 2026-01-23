@@ -1,4 +1,4 @@
-extends StaticBody3D
+extends Node3D
 class_name Collectible
 
 @export_range(10, 30, 1, "or_less", "or_greater") var value: float = 23

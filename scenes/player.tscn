@@ -6,6 +6,7 @@
 [ext_resource type="ArrayMesh" uid="uid://cdy8eltb04onu" path="res://assets/player/eyes.obj" id="4_tuyoq"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_g2els"]
+height = 10.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fjrip"]
 albedo_color = Color(0.96862745, 0.83137256, 0.654902, 1)

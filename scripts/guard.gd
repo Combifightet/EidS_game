@@ -7,16 +7,15 @@ class_name Guard
 @export_range(0, 180, 1, "radians_as_degrees") var vision_angle: float = deg_to_rad(60.0)
 @export var view_dist: float = 4.0
 @export var detection_time: float = 0.5 ## time to be caught in seconds
-@export var eyes_height: float = 0.5
 @export var move_duration: float = 0.4 # How fast the guard moves between tiles
 @export var rotation_duration: float = 0.3 # How fast the guard rotates towards movement direction
 
 # --- References ---
 @onready var vision_area: Area3D = $VisionArea
 @onready var ray_cast: RayCast3D = $RayCast3D
-@onready var spot_indicator: Label3D = $SpotIndicator
 @onready var vision_cone: VisionCone = $VisionArea/VisionCone
 @onready var view_range: CollisionShape3D = $VisionArea/ViewRange
+@onready var eyes_height: float = ray_cast.position.y
 
 # --- State ---
 var target_player: PlayerMovement = null
@@ -40,7 +39,6 @@ var rotation_tween: Tween
 func _ready() -> void:
 	ray_cast.add_exception(self)
 	ray_cast.enabled = false
-	spot_indicator.text = ""
 	
 	vision_cone.id = id
 	vision_cone.angle = vision_angle
@@ -100,7 +98,11 @@ func check_vision(delta: float) -> void:
 	if is_in_range:
 		var can_see = false
 		var guard_eyes = global_position + Vector3(0, eyes_height, 0)
-		var player_center = target_player.global_position + Vector3(0, eyes_height, 0) 
+		var player_center =  Vector3(
+			target_player.global_position.x,
+			global_position.y+eyes_height,
+			target_player.global_position.z
+		) 
 		
 		var direction_to_player_2d = (player_center - guard_eyes)
 		direction_to_player_2d.y = 0 
@@ -251,19 +253,13 @@ func _grid_to_world(grid_pos: Vector2i) -> Vector3:
 
 # --- Helpers ---
 func update_indicator() -> void:
-	if detection_timer > 0:
-		var progress = int((detection_timer / detection_time) * 100)
-		spot_indicator.text = str(progress) + "%"
-		spot_indicator.modulate = Color.WHITE.lerp(Color.RED, detection_timer / detection_time)
-	else:
-		spot_indicator.text = ""
+	pass
 
 func game_over() -> void:
 	AudioController.stop_walk()
 	AudioController.play_lost()
 	
 	print("GAME OVER")
-	spot_indicator.text = "CAUGHT!"
 	get_tree().change_scene_to_file("res://scenes/game_over.tscn")
 	#set_physics_process(false)
 

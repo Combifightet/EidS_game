@@ -101,7 +101,7 @@ func _load_character_data() -> void:
 		if collision_shape and collision_shape.shape is CapsuleShape3D:
 			# IMPORTANT: CapsuleShape height is *only* the cylinder part,
 			# but the mesh height is the *total* height. We must convert.
-			collision_shape.shape.height = new_height - (2.0 * new_radius)
+			#collision_shape.shape.height = new_height - (2.0 * new_radius)
 			collision_shape.shape.radius = new_radius
 			
 		# Apply to the material
