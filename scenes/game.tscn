@@ -29,7 +29,16 @@ ssao_enabled = true
 ssao_radius = 1.53
 ssao_intensity = 4.35
 ssil_enabled = true
+glow_levels/1 = 1.0
+glow_levels/2 = 16.0
+glow_levels/3 = 0.0
+glow_levels/5 = 0.0
+glow_normalized = true
+glow_bloom = 1.0
 volumetric_fog_albedo = Color(0.5176471, 0.5529412, 0.60784316, 1)
+adjustment_brightness = 0.83
+adjustment_contrast = 1.05
+adjustment_saturation = 1.2
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tbgi4"]
 render_priority = 0
