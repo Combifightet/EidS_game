@@ -50,6 +50,23 @@ func _ready() -> void:
 	check_vision(0)
 
 
+func create_wait_timer(wait_time: float = 1.0):
+	print("create wait timer")
+	var timer = Timer.new()
+	timer.wait_time = wait_time
+	timer.one_shot = true
+	timer.autostart = true
+	timer.timeout.connect(_on_timer_timeout)
+	add_child(timer)
+
+func _on_timer_timeout():
+	print("  wait timer ended")
+	is_alert = false # Resume patrol in next frame
+	_set_cone_color(Color(0.0, 0.5, 1.0, 0.3))
+
+	update_indicator()
+
+
 func set_id(new_id: int):
 	id = new_id
 	vision_cone.id = id
@@ -118,6 +135,8 @@ func check_vision(delta: float) -> void:
 			if detection_timer >= detection_time:
 				game_over()
 			_set_cone_color(Color(1.0, 0.0, 0.0, 0.5))
+			
+			create_wait_timer()
 		else:
 			detection_timer = max(0.0, detection_timer - delta)
 			is_alert = false # Resume patrol in next frame
