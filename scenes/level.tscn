@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://dj7yevnfwxhg8"]
+[gd_scene load_steps=5 format=3 uid="uid://dj7yevnfwxhg8"]
 
 [ext_resource type="PackedScene" uid="uid://croe4wv0qitug" path="res://scenes/custom_grid_map.tscn" id="1_2q6dc"]
 [ext_resource type="Script" uid="uid://cl6iayl5jljxv" path="res://scripts/level.gd" id="1_w7c3h"]
 [ext_resource type="PackedScene" uid="uid://cy15vmda7k0x6" path="res://scenes/level_exit.tscn" id="3_w8frs"]
+[ext_resource type="PackedScene" uid="uid://p4hc13wmrmsk" path="res://scenes/guard.tscn" id="4_mx8sn"]
 
 [node name="Level" type="Node3D"]
 script = ExtResource("1_w7c3h")
@@ -15,3 +16,13 @@ data = {
 }
 
 [node name="LevelExit" parent="." instance=ExtResource("3_w8frs")]
+
+[node name="Guard" parent="." instance=ExtResource("4_mx8sn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.773081, 2.6793203, 2.3899179)
+
+[node name="Guard" parent="Guard" instance=ExtResource("4_mx8sn")]
+transform = Transform3D(0.9324815, 0, 0.36121774, 0, 1, 0, -0.36121774, 0, 0.9324815, 2.69907, 0, 0)
+id = 1
+
+[node name="Camera3D" type="Camera3D" parent="Guard"]
+transform = Transform3D(-0.97694147, 0, -0.21350779, -0.1655367, 0.6315693, 0.7574416, 0.13484496, 0.7753195, -0.61700624, 0, 3.0117736, -5.7302556)

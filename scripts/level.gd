@@ -240,9 +240,14 @@ func _place_collectibles(floor_plan_grid: FloorPlanGrid, doors: Array[FloorPlanG
 
 
 
-func place_single_guard(floor_plan_grid: FloorPlanGrid, target_player: Node3D, 
-						nav_data: Dictionary, grid_origin: Vector3, 
-						grid_res: float, patrol_path: Array[Vector2i]) -> void:
+func place_guards(
+	floor_plan_grid: FloorPlanGrid,
+	target_player: Node3D, 
+	nav_data: Dictionary,
+	grid_origin: Vector3, 
+	grid_res: float,
+	patrol_path: Array[Vector2i]
+) -> void:
 	# Get all available rooms from the grid data
 	var room_positions = floor_plan_grid._room_dict.keys()
 	if room_positions.is_empty():
@@ -261,7 +266,7 @@ func place_single_guard(floor_plan_grid: FloorPlanGrid, target_player: Node3D,
 	var guard_instance = _guard_scene.instantiate()
 	add_child(guard_instance)
 	
-	# Position the guard
+	# Position the main guard
 	guard_instance.position = Vector3(
 		float(grid_pos.x) / visual_resolution, 
 		1.0, 
@@ -276,6 +281,59 @@ func place_single_guard(floor_plan_grid: FloorPlanGrid, target_player: Node3D,
 	
 	guard_instance.setup_navigation(grid_origin, grid_res, nav_data)
 	guard_instance.set_patrol_path(patrol_path)
+	
+	patrol_path.shuffle()
+	for i in range(Global.difficulty+1):
+		if len(patrol_path) <= i:
+			print("Couldn't place more than ", i, " collectible(s).")
+			return
+		print("Placing objective guard no. ", i+1)
+		# `patrol_path` are the coordinates of all collectibles!
+		var collectible: FloorPlanCell = floor_plan_grid.get_cell(
+			patrol_path[i].x,
+			patrol_path[i].y
+		)
+		var room_cells: Array[Vector2i] = []
+		for y:int in  range(len(floor_plan_grid.grid)):
+			for x:int in range(len(floor_plan_grid.grid[y])):
+				var cell: FloorPlanCell = floor_plan_grid.get_cell(x, y)
+				if cell.room_id == collectible.room_id and (patrol_path[i].x!=x and patrol_path[i].y!=y):
+					room_cells.append(Vector2i(x, y))
+		if len(room_cells) <= 4:
+			print("Insufficient room size for guard placement")
+			continue
+		var path: Array[Vector2i] = [
+			room_cells.pick_random()
+		]
+		room_cells.erase(path[0])
+		var selection_vec: Vector2i = path[0]-patrol_path[i]
+		# select cells in a clockwise order:
+		for j in range(4):
+			# rotate 90deg cw
+			selection_vec = Vector2i(
+				selection_vec.y,
+				-selection_vec.x
+			)
+			var min_dist: float = (patrol_path[i]-room_cells[0]).length_squared()
+			var min_cell: Vector2i = room_cells[0]
+			for cell_pos in room_cells:
+				var dist: float = (patrol_path[i]-cell_pos).length_squared()
+				if dist < min_dist:
+					min_dist = dist
+					min_cell = cell_pos
+			path.append(min_cell)
+			room_cells.erase(min_cell)
+		
+		
+		var guard: Guard = _guard_scene.instantiate()
+		guard.id = (i+1)
+		add_child(guard)
+		var start_pos = path.pick_random()
+		guard.position = Vector3(start_pos.x, 1, start_pos.y)
+		guard.rotation_degrees.y = (randi() % 4) * 90.0
+		guard.target_player = target_player
+		guard.setup_navigation(grid_origin, grid_res, nav_data)
+		guard.set_patrol_path(path)
 
 
 func _extend_border() -> void:

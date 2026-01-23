@@ -9,7 +9,7 @@ class_name Guard
 @export var detection_time: float = 0.5 ## time to be caught in seconds
 @export var eyes_height: float = 0.5
 @export var move_duration: float = 0.4 # How fast the guard moves between tiles
-@export var rotation_duration: float = 0.15 # How fast the guard rotates towards movement direction
+@export var rotation_duration: float = 0.3 # How fast the guard rotates towards movement direction
 
 # --- References ---
 @onready var vision_area: Area3D = $VisionArea

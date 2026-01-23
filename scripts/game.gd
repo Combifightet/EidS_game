@@ -56,7 +56,7 @@ func stop_loading_animation() -> void:
 		GRID_SUBDIVISIONS
 	)
 	
-	level_gen.place_single_guard(
+	level_gen.place_guards(
 		world.grid, 
 		player_node, 
 		connectivity, 
