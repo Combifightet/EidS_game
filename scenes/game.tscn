@@ -25,6 +25,11 @@ background_mode = 2
 sky = SubResource("Sky_tipki")
 ambient_light_source = 2
 ambient_light_color = Color(0.50140655, 0.5014065, 0.5014065, 1)
+ssao_enabled = true
+ssao_radius = 1.53
+ssao_intensity = 4.35
+ssil_enabled = true
+volumetric_fog_albedo = Color(0.5176471, 0.5529412, 0.60784316, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tbgi4"]
 render_priority = 0
