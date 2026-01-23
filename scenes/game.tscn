@@ -484,7 +484,6 @@ near = 0.001
 far = 100.0
 
 [node name="PostProcessing" type="MeshInstance3D" parent="PixelViewportContainer/PixelViewport/CameraMount/Camera3D"]
-visible = false
 layers = 32
 mesh = SubResource("QuadMesh_tefeu")
 
